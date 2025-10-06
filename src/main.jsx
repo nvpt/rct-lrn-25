@@ -1,9 +1,7 @@
-import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { restaurants } from './../public/mock';
 
 const rootElement = document.getElementById('root');
-
 createRoot(rootElement).render(
   <>
     <h1>Рестораны</h1>
