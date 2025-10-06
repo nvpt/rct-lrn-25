@@ -12,7 +12,7 @@ createRoot(document.getElementById('root')).render(
       {restaurants.map((restaurant) => {
         return (
           <div key={restaurant.id}>
-            <h2> Ресторан "{rest.name}"</h2>
+            <h2> Ресторан "{restaurant.name}"</h2>
             <h3> Меню</h3>
             <ul>
               {restaurant.menu.map((dish) => {
