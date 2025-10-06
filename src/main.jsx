@@ -4,7 +4,7 @@ import { restaurants } from './../public/mock';
 
 const rootElement = document.getElementById('root');
 
-createRoot(document.getElementById('root')).render(
+createRoot(rootElement).render(
   <>
     <h1>Рестораны</h1>
     <hr />
