@@ -33,6 +33,7 @@ export const RestaurantsPage = ({ title }) => {
         style={{
           display: 'flex',
           flex: '1',
+          width: '100%',
           border: '1px solid',
           padding: '30px',
           marginBottom: '30px',

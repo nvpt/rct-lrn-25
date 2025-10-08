@@ -1,31 +1,16 @@
 import { Counter } from '../counter/counter';
+import { Menu } from './menu/menu';
+import { Reviews } from './reviews/reviews';
 
 export const Restaurant = ({ restaurant }) => {
-  const { menu, reviews, name } = restaurant;
+  const { menu, reviews, name: restaurantTitle } = restaurant;
   return (
-    <div>
-      <h2> Ресторан "{name}"</h2>
-      <Counter />
-      <h3> Меню</h3>
-      <ul>
-        {menu.map((dish) => {
-          return <li key={dish.id}>{dish.name}</li>;
-        })}
-      </ul>
-      <h3>Отзывы</h3>
-      <ul>
-        {reviews.map((review) => {
-          return (
-            <li key={review.id}>
-              <i>
-                {review.user}: {review.text}
-              </i>
-            </li>
-          );
-        })}
-      </ul>
+    <div style={{ width: '100%' }}>
+      <h2 style={{ textAlign: 'center' }}> Ресторан "{restaurantTitle}"</h2>
+      <Menu menu={menu} />
       <br />
       <br />
+      <Reviews reviews={reviews} />
     </div>
   );
 };

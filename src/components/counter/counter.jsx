@@ -1,23 +1,43 @@
 import { useState } from 'react';
 
-export const Counter = () => {
-  const [value, setValue] = useState(1);
+export const Counter = ({ min = 0, max = 5 }) => {
+  const [value, setValue] = useState(min);
   const increment = () => {
-    setValue(value + 1);
-    console.log('counter.jsx 7 >>>', 'value:', value);
+    if (value < max) {
+      setValue(value + 1);
+    }
   };
   const decrement = () => {
-    setValue(value + 1);
-    console.log('counter.jsx 11 >>>', 'value:', value);
+    if (value > min) {
+      setValue(value - 1);
+    }
   };
   return (
-    <div>
-      <button type='button' onClick={increment}>
-        +
+    <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+      <button
+        type='button'
+        onClick={decrement}
+        style={{
+          cursor: 'pointer',
+          width: '30px',
+          height: '30px',
+          fontSize: '22px',
+        }}
+      >
+        -
       </button>
       <span>{value}</span>
-      <button type='button' onClick={increment}>
-        -
+      <button
+        type='button'
+        onClick={increment}
+        style={{
+          cursor: 'pointer',
+          width: '30px',
+          height: '30px',
+          fontSize: '22px',
+        }}
+      >
+        +
       </button>
     </div>
   );
