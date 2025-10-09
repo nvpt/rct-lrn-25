@@ -5,12 +5,14 @@ import { Tabs } from '../tabs/tabs';
 
 export const RestaurantsPage = ({ title }) => {
   const INITIAL_RESTAURANT_ID = restaurants[0].id;
-  const [selectedId, setSelectedId] = useState(INITIAL_RESTAURANT_ID);
+  const [selectedRestaurantId, setSelectedRestaurantId] = useState(
+    INITIAL_RESTAURANT_ID
+  );
   const selectItem = (id) => {
-    if (id === selectItem) {
+    if (id === selectedRestaurantId) {
       return;
     }
-    setSelectedId(id);
+    setSelectedRestaurantId(id);
   };
   return (
     <div
@@ -26,7 +28,7 @@ export const RestaurantsPage = ({ title }) => {
         <Tabs
           items={restaurants}
           selectItem={selectItem}
-          selectedId={selectedId}
+          selectedId={selectedRestaurantId}
         />
       </div>
       <div
@@ -39,12 +41,11 @@ export const RestaurantsPage = ({ title }) => {
           marginBottom: '30px',
         }}
       >
-        {restaurants.map(
-          (restaurant) =>
-            selectedId === restaurant.id && (
-              <Restaurant restaurant={restaurant} key={restaurant.id} />
-            )
-        )}
+        {restaurants
+          .filter((restaurant) => restaurant.id === selectedRestaurantId)
+          .map((restaurant) => (
+            <Restaurant restaurant={restaurant} key={restaurant.id} />
+          ))}
       </div>
     </div>
   );
