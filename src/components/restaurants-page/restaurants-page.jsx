@@ -14,6 +14,11 @@ export const RestaurantsPage = ({ title }) => {
     }
     setSelectedRestaurantId(id);
   };
+
+  const selectedRestaurant = restaurants.find(
+    (restaurant) => restaurant.id === selectedRestaurantId
+  );
+
   return (
     <div
       style={{
@@ -41,11 +46,12 @@ export const RestaurantsPage = ({ title }) => {
           marginBottom: '30px',
         }}
       >
-        {restaurants
-          .filter((restaurant) => restaurant.id === selectedRestaurantId)
-          .map((restaurant) => (
-            <Restaurant restaurant={restaurant} key={restaurant.id} />
-          ))}
+        {selectedRestaurant && (
+          <Restaurant
+            restaurant={selectedRestaurant}
+            key={selectedRestaurant.id}
+          />
+        )}
       </div>
     </div>
   );
