@@ -1,5 +1,6 @@
 import { Counter } from '../counter/counter';
 import { Menu } from './menu/menu';
+import { ReviewForm } from './reviews/review-form/review-form';
 import { Reviews } from './reviews/reviews';
 
 export const Restaurant = ({ restaurant }) => {

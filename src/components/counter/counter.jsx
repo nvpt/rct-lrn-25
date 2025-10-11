@@ -1,22 +1,19 @@
-import { useState } from 'react';
-
-export const Counter = ({ min = 0, max = 5 }) => {
-  const [value, setValue] = useState(min);
-  const increment = () => {
-    if (value < max) {
-      setValue(value + 1);
+export const Counter = ({ min = 0, max = 5, value, increment, decrement }) => {
+  const handleDecrement = () => {
+    if (value > min) {
+      decrement();
     }
   };
-  const decrement = () => {
-    if (value > min) {
-      setValue(value - 1);
+  const handleIncrement = () => {
+    if (value < max) {
+      increment();
     }
   };
   return (
     <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
       <button
         type='button'
-        onClick={decrement}
+        onClick={handleDecrement}
         style={{
           cursor: 'pointer',
           width: '30px',
@@ -29,7 +26,7 @@ export const Counter = ({ min = 0, max = 5 }) => {
       <span>{value}</span>
       <button
         type='button'
-        onClick={increment}
+        onClick={handleIncrement}
         style={{
           cursor: 'pointer',
           width: '30px',
