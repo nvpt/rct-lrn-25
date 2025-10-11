@@ -1,6 +1,9 @@
 import { Counter } from '../../counter/counter';
+import { MenuItem } from './menu-item/menu-item';
 
 export const Menu = ({ menu }) => {
+  const minDishCount = 0;
+  const maxDishCount = 5;
   return (
     <div>
       <h3>Меню</h3>
@@ -8,18 +11,12 @@ export const Menu = ({ menu }) => {
         {menu.length ? (
           menu.map((dish) => {
             return (
-              <div
+              <MenuItem
                 key={dish.id}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '15px',
-                  marginBottom: '15px',
-                }}
-              >
-                <Counter />
-                <div key={dish.id}>{dish.name}</div>
-              </div>
+                dish={dish}
+                minDishCount={minDishCount}
+                maxDishCount={maxDishCount}
+              />
             );
           })
         ) : (
