@@ -1,6 +1,8 @@
 import { useReducer } from 'react';
 import { Counter } from '../../../counter/counter';
 
+import cn from './review-form.module.css';
+
 const FORM_ACTYON_TYPE = {
   setName: 'SET_NAME',
   setText: 'SET_TEXT',
@@ -55,12 +57,12 @@ export const ReviewForm = () => {
     <div>
       <h4>Оставить отзыв:</h4>
       <form
-        style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
+        className={cn.form}
         onSubmit={(event) => {
           event.preventDefault();
         }}
       >
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className={cn.formField}>
           <label htmlFor='name'>Имя</label>
           <input
             type='text'
@@ -69,7 +71,7 @@ export const ReviewForm = () => {
             onChange={(event) => setName(event.target.value)}
           />
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className={cn.formField}>
           <label htmlFor='text'>Сообщение</label>
           <textarea
             type='text'
@@ -78,7 +80,7 @@ export const ReviewForm = () => {
             onChange={(event) => setText(event.target.value)}
           />
         </div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div className={cn.formFieldCounter}>
           <label htmlFor='rating'>Оценка</label>
           <Counter
             value={rating}
@@ -86,7 +88,9 @@ export const ReviewForm = () => {
             decrement={() => setRating(rating - 1)}
           />
         </div>
-        <button type='text'>Написать</button>
+        <button type='text' className={cn.button}>
+          Написать
+        </button>
       </form>
     </div>
   );
