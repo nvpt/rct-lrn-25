@@ -21,7 +21,7 @@ export const RestaurantsPage = ({ title }) => {
   );
 
   /**
-   * Получение номера таба для моков скроллбара. После МР удалить
+   * Получение номера таба для моков скролл-прогресс-бара. После МР удалить
    * todo: после код-ревью удалить
    */
   const restaurantNumber = (selectedRestaurant) => {
@@ -64,7 +64,7 @@ export const RestaurantsPage = ({ title }) => {
           <Restaurant
             key={selectedRestaurant.id}
             restaurant={selectedRestaurant}
-            /* todo: временный мок для демонстрации скроллбара. После код-ревью удалить */
+            /* todo: временный мок для демонстрации скролл-прогресс-бара. После код-ревью удалить */
             number={restaurantNumber(selectedRestaurant)}
           />
         )}
