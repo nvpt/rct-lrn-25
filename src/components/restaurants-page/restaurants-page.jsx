@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { restaurants } from '../../../public/mock';
 import { Restaurant } from '../restaurant/restaurant';
 import { Tabs } from '../tabs/tabs';
+import { ScrollProgressBar } from '../scroll-progress-bar/scroll-progress-bar';
 
 export const RestaurantsPage = ({ title }) => {
   const INITIAL_RESTAURANT_ID = restaurants[0].id;
@@ -19,6 +20,18 @@ export const RestaurantsPage = ({ title }) => {
     (restaurant) => restaurant.id === selectedRestaurantId
   );
 
+  /**
+   * Получение номера таба для моков скроллбара. После МР удалить
+   * todo: после код-ревью удалить
+   */
+  const restaurantNumber = (selectedRestaurant) => {
+    return (
+      restaurants.findIndex(
+        (restaurant) => selectedRestaurant.id === restaurant.id
+      ) + 1
+    );
+  };
+
   return (
     <div
       style={{
@@ -28,6 +41,7 @@ export const RestaurantsPage = ({ title }) => {
         flex: '1',
       }}
     >
+      <ScrollProgressBar key={selectedRestaurant.id} />
       <h1 style={{ paddingLeft: '30px' }}>{title}</h1>
       <div style={{ marginBottom: '30px' }}>
         <Tabs
@@ -48,8 +62,10 @@ export const RestaurantsPage = ({ title }) => {
       >
         {selectedRestaurant && (
           <Restaurant
-            restaurant={selectedRestaurant}
             key={selectedRestaurant.id}
+            restaurant={selectedRestaurant}
+            /* todo: временный мок для демонстрации скроллбара. После код-ревью удалить */
+            number={restaurantNumber(selectedRestaurant)}
           />
         )}
       </div>
