@@ -3,6 +3,7 @@ import { restaurants } from '../../../public/mock';
 import { Restaurant } from '../restaurant/restaurant';
 import { Tabs } from '../tabs/tabs';
 import { ScrollProgressBar } from '../scroll-progress-bar/scroll-progress-bar';
+import cn from './restaurant-page.module.css';
 
 export const RestaurantsPage = ({ title }) => {
   const INITIAL_RESTAURANT_ID = restaurants[0].id;
@@ -33,33 +34,17 @@ export const RestaurantsPage = ({ title }) => {
   };
 
   return (
-    <div
-      style={{
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        flex: '1',
-      }}
-    >
+    <div className={cn.restaurantPage}>
       <ScrollProgressBar key={selectedRestaurant.id} />
-      <h1 style={{ paddingLeft: '30px' }}>{title}</h1>
-      <div style={{ marginBottom: '30px' }}>
+      <h1 className={cn.title}>{title}</h1>
+      <div className={cn.tabWrapper}>
         <Tabs
           items={restaurants}
           selectItem={selectItem}
           selectedId={selectedRestaurantId}
         />
       </div>
-      <div
-        style={{
-          display: 'flex',
-          flex: '1',
-          width: '100%',
-          border: '1px solid',
-          padding: '30px',
-          marginBottom: '30px',
-        }}
-      >
+      <div className={cn.restaurantWrapper}>
         {selectedRestaurant && (
           <Restaurant
             key={selectedRestaurant.id}

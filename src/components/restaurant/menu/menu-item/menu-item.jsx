@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Counter } from '../../../counter/counter';
+import cn from './menu-item.module.css';
 
 export const MenuItem = ({ dish, minDishCount, maxDishCount }) => {
   const [count, setCount] = useState(minDishCount);
@@ -10,15 +11,7 @@ export const MenuItem = ({ dish, minDishCount, maxDishCount }) => {
     setCount(count - 1);
   };
   return (
-    <div
-      key={dish.id}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '15px',
-        marginBottom: '15px',
-      }}
-    >
+    <div key={dish.id} className={cn.menuItem}>
       <Counter
         min={minDishCount}
         max={maxDishCount}

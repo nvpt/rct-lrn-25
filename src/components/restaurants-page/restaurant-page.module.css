@@ -1,0 +1,23 @@
+.restaurantPage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.title {
+    padding-left: 30px;
+}
+
+.tabWrapper {
+    margin-bottom: 30px;
+}
+
+.restaurantWrapper {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    border: 1px solid;
+    padding: 30px;
+    margin-bottom: 30px;
+}
