@@ -5,8 +5,8 @@ import { Tabs } from '../tabs/tabs';
 import { ScrollProgressBar } from '../scroll-progress-bar/scroll-progress-bar';
 import cn from './restaurant-page.module.css';
 
+const INITIAL_RESTAURANT_ID = restaurants[0].id;
 export const RestaurantsPage = ({ title }) => {
-  const INITIAL_RESTAURANT_ID = restaurants[0].id;
   const [selectedRestaurantId, setSelectedRestaurantId] = useState(
     INITIAL_RESTAURANT_ID
   );

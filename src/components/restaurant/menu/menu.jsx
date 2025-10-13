@@ -1,9 +1,9 @@
 import { Counter } from '../../counter/counter';
 import { MenuItem } from './menu-item/menu-item';
 
+const minDishCount = 0;
+const maxDishCount = 5;
 export const Menu = ({ menu }) => {
-  const minDishCount = 0;
-  const maxDishCount = 5;
   return (
     <div>
       <h3>Меню</h3>
