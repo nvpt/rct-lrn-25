@@ -12,7 +12,7 @@ export const Restaurant = ({ restaurant, number }) => {
       <br />
       <br />
       <Reviews reviews={reviews} />
-      {/* Мок для демонстрации скролл-прогресс-бара. todo: После код-ревью удалить */}
+      {/* Мок для демонстрации скролл-прогресс-бара. */}
       <div>{longRead.repeat(number)}</div>
     </div>
   );
