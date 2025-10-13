@@ -52,7 +52,7 @@ export const ScrollProgressBar = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [currentPositionInPx]);
+  }, []);
 
   return (
     <div className={cn.scrollbar}>
