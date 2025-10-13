@@ -1,42 +1,23 @@
-import { useState } from 'react';
+import cn from './counter.module.css';
 
-export const Counter = ({ min = 0, max = 5 }) => {
-  const [value, setValue] = useState(min);
-  const increment = () => {
-    if (value < max) {
-      setValue(value + 1);
+export const Counter = ({ min = 0, max = 5, value, increment, decrement }) => {
+  const handleDecrement = () => {
+    if (value > min) {
+      decrement();
     }
   };
-  const decrement = () => {
-    if (value > min) {
-      setValue(value - 1);
+  const handleIncrement = () => {
+    if (value < max) {
+      increment();
     }
   };
   return (
-    <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-      <button
-        type='button'
-        onClick={decrement}
-        style={{
-          cursor: 'pointer',
-          width: '30px',
-          height: '30px',
-          fontSize: '22px',
-        }}
-      >
+    <div className={cn.counter}>
+      <button type='button' onClick={handleDecrement} className={cn.button}>
         -
       </button>
       <span>{value}</span>
-      <button
-        type='button'
-        onClick={increment}
-        style={{
-          cursor: 'pointer',
-          width: '30px',
-          height: '30px',
-          fontSize: '22px',
-        }}
-      >
+      <button type='button' onClick={handleIncrement} className={cn.button}>
         +
       </button>
     </div>

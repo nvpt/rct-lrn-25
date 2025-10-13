@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { restaurants } from '../../../public/mock';
 import { Restaurant } from '../restaurant/restaurant';
 import { Tabs } from '../tabs/tabs';
+import { ScrollProgressBar } from '../scroll-progress-bar/scroll-progress-bar';
+import cn from './restaurant-page.module.css';
 
+const INITIAL_RESTAURANT_ID = restaurants[0].id;
 export const RestaurantsPage = ({ title }) => {
-  const INITIAL_RESTAURANT_ID = restaurants[0].id;
   const [selectedRestaurantId, setSelectedRestaurantId] = useState(
     INITIAL_RESTAURANT_ID
   );
@@ -14,38 +16,42 @@ export const RestaurantsPage = ({ title }) => {
     }
     setSelectedRestaurantId(id);
   };
+
+  const selectedRestaurant = restaurants.find(
+    (restaurant) => restaurant.id === selectedRestaurantId
+  );
+
+  /**
+   * Получение номера таба для моков скролл-прогресс-бара.
+   */
+  const restaurantNumber = (selectedRestaurant) => {
+    return (
+      restaurants.findIndex(
+        (restaurant) => selectedRestaurant.id === restaurant.id
+      ) + 1
+    );
+  };
+
   return (
-    <div
-      style={{
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        flex: '1',
-      }}
-    >
-      <h1 style={{ paddingLeft: '30px' }}>{title}</h1>
-      <div style={{ marginBottom: '30px' }}>
+    <div className={cn.restaurantPage}>
+      <ScrollProgressBar key={selectedRestaurant.id} />
+      <h1 className={cn.title}>{title}</h1>
+      <div className={cn.tabWrapper}>
         <Tabs
           items={restaurants}
           selectItem={selectItem}
           selectedId={selectedRestaurantId}
         />
       </div>
-      <div
-        style={{
-          display: 'flex',
-          flex: '1',
-          width: '100%',
-          border: '1px solid',
-          padding: '30px',
-          marginBottom: '30px',
-        }}
-      >
-        {restaurants
-          .filter((restaurant) => restaurant.id === selectedRestaurantId)
-          .map((restaurant) => (
-            <Restaurant restaurant={restaurant} key={restaurant.id} />
-          ))}
+      <div className={cn.restaurantWrapper}>
+        {selectedRestaurant && (
+          <Restaurant
+            key={selectedRestaurant.id}
+            restaurant={selectedRestaurant}
+            /* Тех. параметр для демонстрации скролл-прогресс-бара. */
+            number={restaurantNumber(selectedRestaurant)}
+          />
+        )}
       </div>
     </div>
   );

@@ -16,6 +16,17 @@ hr {
     box-sizing: border-box;
 }
 
+input, textarea {
+padding: 12px 16px;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+}
+
 .root-app {
     height: 100%;
 }

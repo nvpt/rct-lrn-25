@@ -1,0 +1,23 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding-top: 12px;
+}
+
+.headr,
+.footer,
+header,
+footer {
+    width: 100%;
+    padding: 16px 30px;
+    border: 1px solid;
+}
+
+.content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 0 30px;
+}

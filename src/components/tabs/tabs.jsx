@@ -1,26 +1,14 @@
+import cn from './tabs.module.css';
+
 export const Tabs = ({ items, selectItem, selectedId }) => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        overflow: 'auto',
-        justifyContent: 'stretch',
-        gap: '16px',
-      }}
-    >
+    <div className={cn.tabs}>
       {items.map((item) => {
         return (
           <div
+            className={cn.tab}
             style={{
-              display: 'flex',
-              flex: '1',
-              border: '1px solid',
-              padding: '16px 30px',
-              justifyContent: 'center',
-              whiteSpace: 'nowrap',
-              cursor: 'pointer',
-              background: selectedId === item.id ? 'gray' : 'none',
+              background: selectedId === item.id && 'gray',
             }}
             key={item.id}
             onClick={() => selectItem(item.id)}
