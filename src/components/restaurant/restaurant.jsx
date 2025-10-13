@@ -7,7 +7,6 @@ export const Restaurant = ({ restaurant, number }) => {
   const { menu, reviews, name: restaurantTitle } = restaurant;
   return (
     <div className={cn.restaurant}>
-      <div>number {number}</div>
       <h2 className={cn.title}> Ресторан "{restaurantTitle}"</h2>
       <Menu menu={menu} />
       <br />
