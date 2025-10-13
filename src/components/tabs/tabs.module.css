@@ -15,3 +15,7 @@
     white-space: nowrap;
     cursor: pointer;
 }
+
+.tab:hover {
+    background: lightgray;
+}

@@ -8,7 +8,7 @@ export const Tabs = ({ items, selectItem, selectedId }) => {
           <div
             className={cn.tab}
             style={{
-              background: selectedId === item.id ? 'gray' : 'none',
+              background: selectedId === item.id && 'gray',
             }}
             key={item.id}
             onClick={() => selectItem(item.id)}
