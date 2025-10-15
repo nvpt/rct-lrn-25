@@ -39,7 +39,7 @@ const reducer = (state, action) => {
   }
 };
 
-export const ReviewForm = () => {
+export const ReviewForm = ({ className }) => {
   const [form, dispatch] = useReducer(reducer, INITIAL_FORM);
   const { name, text, rating } = form;
 
@@ -54,7 +54,7 @@ export const ReviewForm = () => {
   };
 
   return (
-    <div>
+    <div className={className}>
       <h4>Оставить отзыв:</h4>
       <form
         className={cn.form}

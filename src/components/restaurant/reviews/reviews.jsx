@@ -1,5 +1,6 @@
 import { Counter } from '../../counter/counter';
 import { ReviewForm } from './review-form/review-form';
+import cn from './reviews.module.css';
 
 export const Reviews = ({ reviews }) => {
   if (!reviews.length) {
@@ -21,7 +22,7 @@ export const Reviews = ({ reviews }) => {
         })}
       </ul>
       <br />
-      <ReviewForm />
+      <ReviewForm className={cn.reviewForm} />
     </div>
   );
 };

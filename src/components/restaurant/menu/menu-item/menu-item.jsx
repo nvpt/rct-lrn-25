@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Counter } from '../../../counter/counter';
 import cn from './menu-item.module.css';
+import classNames from 'classnames';
 
-export const MenuItem = ({ dish, minDishCount, maxDishCount }) => {
+export const MenuItem = ({ dish, minDishCount, maxDishCount, className }) => {
   const [count, setCount] = useState(minDishCount);
   const incrementDish = () => {
     setCount(count + 1);
@@ -11,7 +12,7 @@ export const MenuItem = ({ dish, minDishCount, maxDishCount }) => {
     setCount(count - 1);
   };
   return (
-    <div key={dish.id} className={cn.menuItem}>
+    <div key={dish.id} className={classNames(className, cn.menuItem)}>
       <Counter
         min={minDishCount}
         max={maxDishCount}
