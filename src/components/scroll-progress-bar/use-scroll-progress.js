@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /**
  * Определение текущей позиции скролла в пикселях
@@ -30,14 +30,12 @@ export const useScrollProgress = () => {
   const [currentPositionInPx, setCurrentPositionInPx] = useState(0);
 
   /* Высота всего документа */
-  const [documentHeight, setDocumentHeight] = useState();
+  const documentHeightRef = useRef();
 
   useEffect(() => {
-    setDocumentHeight(
-      Math.max(
-        document.body.scrollHeight,
-        document.documentElement.scrollHeight
-      )
+    documentHeightRef.current = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight
     );
     setCurrentPositionInPx(definePositionInPx());
   }, []);
@@ -53,5 +51,10 @@ export const useScrollProgress = () => {
     };
   }, []);
 
-  return definePositionInPercents(currentPositionInPx, documentHeight) + '%';
+  return (
+    definePositionInPercents(
+      currentPositionInPx,
+      documentHeightRef.current
+    ) + '%'
+  );
 };
