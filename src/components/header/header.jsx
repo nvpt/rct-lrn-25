@@ -36,7 +36,7 @@ export const Header = () => {
               <Button title={'Выйти'} onClick={() => changeAuthorize(null)} />
             </>
           )}
-          {!user && (
+          {!user?.name && (
             <Button title={'Войти'} onClick={() => changeAuthorize(someUser)} />
           )}
         </div>
