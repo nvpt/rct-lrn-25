@@ -8,9 +8,13 @@ export const ScrollProgressBar = () => {
   const { theme } = useContext(ThemeContext);
 
   return (
-    <div
-      className={cn.scrollbar}
-      style={{ width: scrollBarWidth, backgroundColor: `light${theme}` }}
-    />
+    <>
+      {/* todo temp */}
+      {scrollBarWidth}
+      <div
+        className={cn.scrollbar}
+        style={{ width: scrollBarWidth, backgroundColor: `light${theme}` }}
+      />
+    </>
   );
 };
