@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+import { Button } from '../button/button';
 import cn from './tabs.module.css';
 
 export const Tabs = ({ items, selectItem, selectedId }) => {
@@ -5,16 +7,14 @@ export const Tabs = ({ items, selectItem, selectedId }) => {
     <div className={cn.tabs}>
       {items.map((item) => {
         return (
-          <div
-            className={cn.tab}
-            style={{
-              background: selectedId === item.id && 'gray',
-            }}
+          <Button
+            className={classNames(cn.tab, {
+              active: selectedId === item.id,
+            })}
             key={item.id}
             onClick={() => selectItem(item.id)}
-          >
-            {item.name}
-          </div>
+            title={item.name}
+          />
         );
       })}
     </div>

@@ -13,9 +13,5 @@
     padding: 16px 30px;
     justify-content: center;
     white-space: nowrap;
-    cursor: pointer;
-}
-
-.tab:hover {
-    background: lightgray;
+    border-radius: 5px;
 }
