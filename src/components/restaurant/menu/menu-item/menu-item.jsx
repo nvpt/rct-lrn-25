@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Counter } from '../../../counter/counter';
 import cn from './menu-item.module.css';
 import classNames from 'classnames';
@@ -9,16 +8,12 @@ export const MenuItem = ({
   maxDishCount,
   className,
   isAuthorized,
+  incrementDish,
+  decrementDish,
+  count,
 }) => {
-  const [count, setCount] = useState(minDishCount);
-  const incrementDish = () => {
-    setCount(count + 1);
-  };
-  const decrementDish = () => {
-    setCount(count - 1);
-  };
   return (
-    <div key={dish.id} className={classNames(className, cn.menuItem)}>
+    <div className={classNames(className, cn.menuItem)}>
       {isAuthorized && (
         <Counter
           min={minDishCount}
@@ -28,7 +23,13 @@ export const MenuItem = ({
           decrement={decrementDish}
         />
       )}
-      <div key={dish.id}>{dish.name}</div>
+      <div className={cn.dish}>
+        <div className={cn.dishName}>
+          <div>{dish?.name}</div>&nbsp;<div>(Цена: {dish?.price})</div>
+        </div>
+
+        <i>Состав: {dish?.ingredients.join(', ')}</i>
+      </div>
     </div>
   );
 };

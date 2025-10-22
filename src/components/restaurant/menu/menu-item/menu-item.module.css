@@ -3,3 +3,12 @@
     align-items: center;
     gap: 15px;
 }
+
+.dish {
+    display: flex;
+    flex-direction: column;
+}
+
+.dishName {
+    display: flex;
+}

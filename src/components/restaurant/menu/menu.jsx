@@ -1,4 +1,5 @@
 import { MenuItem } from './menu-item/menu-item';
+import { MenuItemContainer } from './menu-item/menu-item-container';
 import cn from './menu.module.css';
 
 const minDishCount = 0;
@@ -9,11 +10,11 @@ export const Menu = ({ menu, isAuthorized }) => {
       <h3>Меню</h3>
       <div>
         {menu.length ? (
-          menu.map((dish) => {
+          menu.map((dishId) => {
             return (
-              <MenuItem
-                key={dish.id}
-                dish={dish}
+              <MenuItemContainer
+                key={dishId}
+                dishId={dishId}
                 minDishCount={minDishCount}
                 maxDishCount={maxDishCount}
                 className={cn.menuItem}
