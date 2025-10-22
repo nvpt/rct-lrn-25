@@ -1,8 +1,11 @@
+import { useContext } from 'react';
 import { Counter } from '../../counter/counter';
 import { ReviewForm } from './review-form/review-form';
 import cn from './reviews.module.css';
+import { AuthContext } from '../../../providers/auth-provider';
 
 export const Reviews = ({ reviews }) => {
+  const { user } = useContext(AuthContext);
   if (!reviews.length) {
     return null;
   }
@@ -22,7 +25,7 @@ export const Reviews = ({ reviews }) => {
         })}
       </ul>
       <br />
-      <ReviewForm className={cn.reviewForm} />
+      {user?.name && <ReviewForm className={cn.reviewForm} />}
     </div>
   );
 };

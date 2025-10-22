@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { AuthContext } from '../../providers/auth-provider';
 
 /**
  * Определение текущей позиции скролла в пикселях
@@ -28,6 +29,7 @@ const definePositionInPercents = (currentPosition, documentHeight) => {
 export const useScrollProgress = () => {
   /* Текущая позиция скролла в пикселях */
   const [currentPositionInPx, setCurrentPositionInPx] = useState(0);
+  const { user } = useContext(AuthContext);
 
   /* Высота всего документа */
   const documentHeightRef = useRef();
@@ -38,7 +40,7 @@ export const useScrollProgress = () => {
       document.documentElement.scrollHeight
     );
     setCurrentPositionInPx(definePositionInPx());
-  }, []);
+  }, [user?.name]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,12 +51,10 @@ export const useScrollProgress = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [user?.name]);
 
   return (
-    definePositionInPercents(
-      currentPositionInPx,
-      documentHeightRef.current
-    ) + '%'
+    definePositionInPercents(currentPositionInPx, documentHeightRef.current) +
+    '%'
   );
 };

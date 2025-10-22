@@ -1,0 +1,23 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.themeSelector {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.rightPart {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}

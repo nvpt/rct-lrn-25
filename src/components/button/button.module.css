@@ -1,0 +1,30 @@
+.button {
+    cursor: pointer;
+}
+
+.buttonThemeDefault {
+    background: lightgray;
+}
+
+.buttonThemeDefault:hover,
+.buttonThemeDefault.active {
+    background: lightslategray;
+}
+
+.buttonThemeGreen {
+    background: lightgreen;
+}
+
+.buttonThemeGreen:hover,
+.buttonThemeGreen.active {
+    background: lightseagreen;
+}
+
+.buttonThemeBlue {
+    background: lightblue;
+}
+
+.buttonThemeBlue:hover,
+.buttonThemeBlue.active {
+    background: lightsteelblue;
+}

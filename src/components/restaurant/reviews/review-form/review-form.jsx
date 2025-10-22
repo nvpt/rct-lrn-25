@@ -2,6 +2,7 @@ import { useReducer } from 'react';
 import { Counter } from '../../../counter/counter';
 
 import cn from './review-form.module.css';
+import { Button } from '../../../button/button';
 
 const FORM_ACTYON_TYPE = {
   setName: 'SET_NAME',
@@ -88,9 +89,7 @@ export const ReviewForm = ({ className }) => {
             decrement={() => setRating(rating - 1)}
           />
         </div>
-        <button type='text' className={cn.button}>
-          Написать
-        </button>
+        <Button className={cn.button} title={'Написать'} />
       </form>
     </div>
   );

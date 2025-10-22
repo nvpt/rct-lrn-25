@@ -1,3 +1,4 @@
+import { Button } from '../button/button';
 import cn from './counter.module.css';
 
 export const Counter = ({ min = 0, max = 5, value, increment, decrement }) => {
@@ -13,13 +14,9 @@ export const Counter = ({ min = 0, max = 5, value, increment, decrement }) => {
   };
   return (
     <div className={cn.counter}>
-      <button type='button' onClick={handleDecrement} className={cn.button}>
-        -
-      </button>
+      <Button onClick={handleDecrement} className={cn.button} title={'-'} />
       <span>{value}</span>
-      <button type='button' onClick={handleIncrement} className={cn.button}>
-        +
-      </button>
+      <Button onClick={handleIncrement} className={cn.button} title={'+'} />
     </div>
   );
 };
