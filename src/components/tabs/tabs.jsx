@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { Button } from '../button/button';
 import cn from './tabs.module.css';
 
@@ -8,12 +7,11 @@ export const Tabs = ({ items, selectItem, selectedId }) => {
       {items.map((item) => {
         return (
           <Button
-            className={classNames(cn.tab, {
-              active: selectedId === item.id,
-            })}
+            className={cn.tab}
             key={item.id}
             onClick={() => selectItem(item.id)}
             title={item.name}
+            isActive={selectedId === item.id}
           />
         );
       })}

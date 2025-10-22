@@ -8,3 +8,15 @@
     background-color: lightgray;
     z-index: 100;
 }
+
+.gray {
+    background-color: lightgray;
+}
+
+.blue {
+    background-color: lightblue;
+}
+
+.green {
+    background-color: lightgreen;
+}

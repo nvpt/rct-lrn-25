@@ -30,8 +30,6 @@ export const useScrollProgress = () => {
   /* Текущая позиция скролла в пикселях */
   const [currentPositionInPx, setCurrentPositionInPx] = useState(0);
   const { user } = useContext(AuthContext);
-  /* todo temp */
-  console.log('use-scroll-progress.js 33 >>> user:', user);
 
   /* Высота всего документа */
   const documentHeightRef = useRef();
@@ -55,11 +53,8 @@ export const useScrollProgress = () => {
     };
   }, [user?.name]);
 
-  /* todo temp */
-  let res =
+  return (
     definePositionInPercents(currentPositionInPx, documentHeightRef.current) +
-    '%';
-  console.log('use-scroll-progress.js 65 >>> res:', res);
-
-  return res;
+    '%'
+  );
 };

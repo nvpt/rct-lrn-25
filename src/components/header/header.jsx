@@ -1,7 +1,8 @@
 import { useContext, useRef } from 'react';
 import cn from './header.module.css';
 import {
-  THEME_CONTEXT_LIST,
+  THEME_MAP,
+  THEME_OPTIONS,
   ThemeContext,
 } from '../../providers/theme-provider';
 import { AuthContext } from '../../providers/auth-provider';
@@ -14,7 +15,6 @@ const someUser = {
 export const Header = () => {
   const { theme, changeTheme } = useContext(ThemeContext);
   const { user, changeAuthorize } = useContext(AuthContext);
-  const themeOptions = useRef(Object.values(THEME_CONTEXT_LIST));
 
   /**
    * Изменить тему
@@ -43,7 +43,7 @@ export const Header = () => {
         <div className={cn.themeSelector}>
           <label htmlFor='themeSelector'>Выбрать тему:</label>
           <select id='themeSelector' value={theme} onChange={handleChangeTheme}>
-            {themeOptions.current.map((option) => (
+            {THEME_OPTIONS.map((option) => (
               <option value={option} key={option}>
                 {option}
               </option>

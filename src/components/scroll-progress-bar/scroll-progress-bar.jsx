@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 import cn from './scroll-progress-bar.module.css';
 import { useScrollProgress } from './use-scroll-progress';
-import { ThemeContext } from '../../providers/theme-provider';
+import { THEME_MAP, ThemeContext } from '../../providers/theme-provider';
+import classNames from 'classnames';
 
 export const ScrollProgressBar = () => {
   const scrollBarWidth = useScrollProgress();
@@ -9,11 +10,13 @@ export const ScrollProgressBar = () => {
 
   return (
     <>
-      {/* todo temp */}
-      {scrollBarWidth}
       <div
-        className={cn.scrollbar}
-        style={{ width: scrollBarWidth, backgroundColor: `light${theme}` }}
+        className={classNames(cn.scrollbar, {
+          [cn.gray]: theme === THEME_MAP.gray,
+          [cn.blue]: theme === THEME_MAP.blue,
+          [cn.green]: theme === THEME_MAP.green,
+        })}
+        style={{ width: scrollBarWidth }}
       />
     </>
   );
