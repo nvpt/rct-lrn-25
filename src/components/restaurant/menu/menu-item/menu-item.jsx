@@ -1,11 +1,15 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Counter } from '../../../counter/counter';
 import cn from './menu-item.module.css';
 import classNames from 'classnames';
-import { AuthContext } from '../../../../providers/auth-provider';
 
-export const MenuItem = ({ dish, minDishCount, maxDishCount, className }) => {
-  const { user } = useContext(AuthContext);
+export const MenuItem = ({
+  dish,
+  minDishCount,
+  maxDishCount,
+  className,
+  isAuthorized,
+}) => {
   const [count, setCount] = useState(minDishCount);
   const incrementDish = () => {
     setCount(count + 1);
@@ -15,7 +19,7 @@ export const MenuItem = ({ dish, minDishCount, maxDishCount, className }) => {
   };
   return (
     <div key={dish.id} className={classNames(className, cn.menuItem)}>
-      {user?.name && (
+      {isAuthorized && (
         <Counter
           min={minDishCount}
           max={maxDishCount}

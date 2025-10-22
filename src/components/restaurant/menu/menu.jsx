@@ -1,10 +1,9 @@
-import { Counter } from '../../counter/counter';
 import { MenuItem } from './menu-item/menu-item';
 import cn from './menu.module.css';
 
 const minDishCount = 0;
 const maxDishCount = 5;
-export const Menu = ({ menu }) => {
+export const Menu = ({ menu, isAuthorized }) => {
   return (
     <div>
       <h3>Меню</h3>
@@ -18,6 +17,7 @@ export const Menu = ({ menu }) => {
                 minDishCount={minDishCount}
                 maxDishCount={maxDishCount}
                 className={cn.menuItem}
+                isAuthorized={isAuthorized}
               />
             );
           })
