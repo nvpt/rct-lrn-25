@@ -1,12 +1,10 @@
-import { useContext } from 'react';
-import { Counter } from '../../counter/counter';
+import { Review } from '../../review/review';
+import { ReviewContainer } from '../../review/review-container';
 import { ReviewForm } from './review-form/review-form';
 import cn from './reviews.module.css';
-import { AuthContext } from '../../../providers/auth-provider';
 
-export const Reviews = ({ reviews }) => {
-  const { user } = useContext(AuthContext);
-  if (!reviews.length) {
+export const Reviews = ({ reviewsIds, isAuthorized }) => {
+  if (!reviewsIds.length) {
     return null;
   }
 
@@ -14,18 +12,12 @@ export const Reviews = ({ reviews }) => {
     <div>
       <h3>Отзывы</h3>
       <ul>
-        {reviews.map((review) => {
-          return (
-            <li key={review.id}>
-              <i>
-                {review.user}: {review.text} ({review.rating})
-              </i>
-            </li>
-          );
+        {reviewsIds.map((reviewId) => {
+          return <ReviewContainer reviewId={reviewId} key={reviewId} />;
         })}
       </ul>
       <br />
-      {user?.name && <ReviewForm className={cn.reviewForm} />}
+      {isAuthorized && <ReviewForm className={cn.reviewForm} />}
     </div>
   );
 };
