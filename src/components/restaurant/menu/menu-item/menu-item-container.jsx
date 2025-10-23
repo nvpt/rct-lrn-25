@@ -1,7 +1,12 @@
-import { useState } from 'react';
+import { useCallback } from 'react';
 import { MenuItem } from './menu-item';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectDishById } from '../../../../redux/entities/dishes/dishes-slice';
+import {
+  addItemToCart,
+  removeItemFromCart,
+  selectCartItemAmountById,
+} from '../../../../redux/entities/cart/cart-slice';
 
 export const MenuItemContainer = ({
   dishId,
@@ -10,15 +15,19 @@ export const MenuItemContainer = ({
   className,
   isAuthorized,
 }) => {
-  const [count, setCount] = useState(minDishCount);
-  const incrementDish = () => {
-    setCount(count + 1);
-  };
-  const decrementDish = () => {
-    setCount(count - 1);
-  };
+  const dispatch = useDispatch();
+  const count = useSelector(
+    (state) => selectCartItemAmountById(state, dishId) || 0
+  );
+  const incrementDish = useCallback(
+    () => dispatch(addItemToCart(dishId)),
+    [dispatch, dishId]
+  );
+  const decrementDish = useCallback(
+    () => dispatch(removeItemFromCart(dishId)),
+    [dispatch, dishId]
+  );
   const dish = useSelector((state) => selectDishById(state, dishId));
-  console.log('menu-item-container.jsx 21 >>> dish:', dish);
 
   if (!dish) {
     return null;
