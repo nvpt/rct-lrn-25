@@ -1,21 +1,20 @@
-import { useContext, useState } from 'react';
 import { Counter } from '../../../counter/counter';
 import cn from './menu-item.module.css';
 import classNames from 'classnames';
-import { AuthContext } from '../../../../providers/auth-provider';
 
-export const MenuItem = ({ dish, minDishCount, maxDishCount, className }) => {
-  const { user } = useContext(AuthContext);
-  const [count, setCount] = useState(minDishCount);
-  const incrementDish = () => {
-    setCount(count + 1);
-  };
-  const decrementDish = () => {
-    setCount(count - 1);
-  };
+export const MenuItem = ({
+  dish,
+  minDishCount,
+  maxDishCount,
+  className,
+  isAuthorized,
+  incrementDish,
+  decrementDish,
+  count,
+}) => {
   return (
-    <div key={dish.id} className={classNames(className, cn.menuItem)}>
-      {user?.name && (
+    <div className={classNames(className, cn.menuItem)}>
+      {isAuthorized && (
         <Counter
           min={minDishCount}
           max={maxDishCount}
@@ -24,7 +23,13 @@ export const MenuItem = ({ dish, minDishCount, maxDishCount, className }) => {
           decrement={decrementDish}
         />
       )}
-      <div key={dish.id}>{dish.name}</div>
+      <div className={cn.dish}>
+        <div className={cn.dishName}>
+          <div>{dish?.name}</div>&nbsp;<div>(Цена: {dish?.price})</div>
+        </div>
+
+        <i>Состав: {dish?.ingredients.join(', ')}</i>
+      </div>
     </div>
   );
 };
