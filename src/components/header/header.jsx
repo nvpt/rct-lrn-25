@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext } from 'react';
 import cn from './header.module.css';
 import {
   THEME_MAP,
@@ -7,6 +7,7 @@ import {
 } from '../../providers/theme-provider';
 import { AuthContext } from '../../providers/auth-provider';
 import { Button } from '../button/button';
+import { Cart } from '../cart/cart';
 
 const someUser = {
   name: 'Zato',
@@ -26,7 +27,7 @@ export const Header = () => {
 
   return (
     <header className={cn.header}>
-      <h2>HEADER</h2>
+      <Cart />
 
       <div className={cn.rightPart}>
         <div className={cn.user}>
