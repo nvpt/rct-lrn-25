@@ -1,0 +1,34 @@
+.link {
+    cursor: pointer;
+}
+
+.link.active {
+    pointer-events: none;
+}
+
+.linkThemeDefault {
+    background: var(--default-theme);
+}
+
+.linkThemeDefault:hover,
+.linkThemeDefault.active {
+    background: var(--default-theme-hover);
+}
+
+.linkThemeGreen {
+    background: var(--green-theme);
+}
+
+.linkThemeGreen:hover,
+.linkThemeGreen.active {
+    background: var(--green-theme-hover);
+}
+
+.linkThemeBlue {
+    background: var(--blue-theme);
+}
+
+.linkThemeBlue:hover,
+.linkThemeBlue.active {
+    background: var(--blue-theme-hover);
+}
