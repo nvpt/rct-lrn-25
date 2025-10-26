@@ -3,7 +3,7 @@ import cn from './navlink-custom.module.css';
 import { THEME_MAP } from '../../providers/theme-provider';
 import { NavLink } from 'react-router';
 
-export const LinkCustom = ({ children, ...props }) => {
+export const NavLinkCustom = ({ children, ...props }) => {
   return (
     <NavLink
       {...props}

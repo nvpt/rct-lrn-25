@@ -1,8 +1,11 @@
 .link {
     cursor: pointer;
+    text-decoration: none;
+    background: var(--default-theme);
 }
 
 .link.active {
+    background: var(--default-theme-hover);
     pointer-events: none;
 }
 

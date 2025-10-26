@@ -21,14 +21,3 @@
     padding: 30px;
     margin-bottom: 30px;
 }
-
-.tab {
-    display: flex;
-    flex: 1;
-    border: 1px solid;
-    padding: 16px 30px;
-    justify-content: center;
-    white-space: nowrap;
-    border-radius: 5px;
-    text-decoration: none;
-}

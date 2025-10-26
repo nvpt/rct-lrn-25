@@ -16,7 +16,7 @@ export const RestaurantsLayout = ({ title }) => {
       <div className={cn.tabWrapper}>
         <Tabs>
           {restaurantsIds.map((id) => (
-            <RestaurantTab id={id} className={cn.tab} key={id} />
+            <RestaurantTab id={id} key={id} />
           ))}
         </Tabs>
       </div>

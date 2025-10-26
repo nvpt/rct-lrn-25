@@ -5,3 +5,24 @@
 .title {
     text-align: center;
 }
+
+.links {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.link {
+    display: flex;
+    flex: 1;
+    max-width: 300px;
+    border: 1px solid;
+    padding: 10px 20px;
+    justify-content: center;
+    white-space: nowrap;
+    border-radius: 5px;
+    text-decoration: none;
+
+}

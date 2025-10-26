@@ -6,6 +6,7 @@ import {
 import { Restaurant } from './restaurant';
 import { AuthContext } from '../../providers/auth-provider';
 import { useContext } from 'react';
+import { ThemeContext } from '../../providers/theme-provider';
 
 export const RestaurantContainer = ({ selectedRestaurantId }) => {
   const restaurant = useSelector((state) =>
@@ -13,6 +14,7 @@ export const RestaurantContainer = ({ selectedRestaurantId }) => {
   );
   const restaurantsIds = useSelector(selectRestaurantsIds);
   const { user } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
 
   if (!restaurant) {
     return null;
@@ -30,6 +32,7 @@ export const RestaurantContainer = ({ selectedRestaurantId }) => {
       restaurant={restaurant}
       restaurantNumber={restaurantNumber(selectedRestaurantId)}
       isAuthorized={user?.name}
+      theme={theme}
     />
   );
 };
