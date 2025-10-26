@@ -9,11 +9,16 @@
     gap: 16px;
 }
 
+.leftPart,
 .rightPart {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 32px;
+}
+
+.home {
+    cursor: pointer;
 }
 
 .user {

@@ -3,28 +3,28 @@
 }
 
 .buttonThemeDefault {
-    background: lightgray;
+    background: var(--default-theme);
 }
 
 .buttonThemeDefault:hover,
 .buttonThemeDefault.active {
-    background: lightslategray;
+    background: var(--default-theme-hover);
 }
 
 .buttonThemeGreen {
-    background: lightgreen;
+    background: var(--green-theme);
 }
 
 .buttonThemeGreen:hover,
 .buttonThemeGreen.active {
-    background: lightseagreen;
+    background: var(--green-theme-hover);
 }
 
 .buttonThemeBlue {
-    background: lightblue;
+    background: var(--blue-theme);
 }
 
 .buttonThemeBlue:hover,
 .buttonThemeBlue.active {
-    background: lightsteelblue;
+    background: var(--blue-theme-hover);
 }
