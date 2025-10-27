@@ -13,7 +13,6 @@ import { RestaurantPage } from '../../pages/restaurant-page/restaurant-page';
 import { Menu } from '../restaurant/menu/menu';
 import { Reviews } from '../restaurant/reviews/reviews';
 import { DishPage } from '../../pages/dish-page/dish-page';
-import { DishLayout } from '../../layouts/dish-layout/dish-layout';
 import { WrongPage } from '../wrong-page/wrong-page';
 
 export const App = () => {
@@ -24,7 +23,7 @@ export const App = () => {
           <BrowserRouter>
             <Routes>
               <Route element={<Layout />}>
-                <Route index element={<HomePage />}></Route>
+                <Route index element={<HomePage />} />
                 <Route path='restaurants' element={<RestaurantsLayout />}>
                   <Route index element={<RestaurantsPage />} />
                   {/* 1. Можно ли ставить оутлет не в RestaurantPage, а в его вложенном компоненте Restaurant?
@@ -45,9 +44,7 @@ export const App = () => {
                     }
                   />
                 </Route>
-                <Route path='dish/:dishId' element={<DishLayout />}>
-                  <Route index element={<DishPage />}></Route>
-                </Route>
+                <Route path='dish/:dishId' element={<DishPage />} />
                 <Route path='*' index element={<WrongPage />} />
               </Route>
             </Routes>
