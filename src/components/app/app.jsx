@@ -32,11 +32,11 @@ export const App = () => {
                     <Route index element={<Navigate to='menu' />} />
                     <Route path='menu' element={<Menu />} />
                     <Route path='reviews' element={<Reviews />} />
-                    <Route
-                      path='*'
-                      element={<div>Страница ресторана не найдена</div>}
-                    />
                   </Route>
+                  <Route
+                    path='*'
+                    element={<div>Страница ресторана не найдена</div>}
+                  />
                 </Route>
                 <Route path='dish/:dishId' element={<DishLayout />}>
                   <Route index element={<DishPage />}></Route>
