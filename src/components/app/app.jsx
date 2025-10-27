@@ -14,6 +14,7 @@ import { Menu } from '../restaurant/menu/menu';
 import { Reviews } from '../restaurant/reviews/reviews';
 import { DishPage } from '../../pages/dish-page/dish-page';
 import { DishLayout } from '../../layouts/dish-layout/dish-layout';
+import { WrongPage } from '../wrong-page/wrong-page';
 
 export const App = () => {
   return (
@@ -35,17 +36,19 @@ export const App = () => {
                   </Route>
                   <Route
                     path='*'
-                    element={<div>Страница ресторана не найдена</div>}
+                    element={
+                      <WrongPage
+                        title='Ресторан не найден'
+                        linkUrl='/restaurants'
+                        linkText={'Вернуться к списку ресторанов'}
+                      />
+                    }
                   />
                 </Route>
                 <Route path='dish/:dishId' element={<DishLayout />}>
                   <Route index element={<DishPage />}></Route>
                 </Route>
-                <Route
-                  path='*'
-                  index
-                  element={<div>Страница не найдена</div>}
-                />
+                <Route path='*' index element={<WrongPage />} />
               </Route>
             </Routes>
           </BrowserRouter>
