@@ -1,3 +1,9 @@
+.menuList {
+    display: flex;
+    flex-direction: column;
+}
+
 .menuItem {
-    margin-bottom: 15px;
+    display: flex;
+    margin-bottom: 12px;
 }

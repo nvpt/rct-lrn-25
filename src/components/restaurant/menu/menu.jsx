@@ -1,32 +1,29 @@
 import { useOutletContext } from 'react-router';
-import { MenuItemContainer } from './menu-item/menu-item-container';
 import cn from './menu.module.css';
+import { MenuLinkContainer } from './menu-link-container';
 
-const minDishCount = 0;
-const maxDishCount = 5;
 export const Menu = () => {
-  const { menu, isAuthorized } = useOutletContext();
+  const { menu, restaurantId } = useOutletContext();
   return (
     <div>
       <h3>Меню</h3>
-      <div>
+      <ul>
         {menu?.length ? (
           menu.map((dishId) => {
             return (
-              <MenuItemContainer
-                key={dishId}
-                dishId={dishId}
-                minDishCount={minDishCount}
-                maxDishCount={maxDishCount}
-                className={cn.menuItem}
-                isAuthorized={isAuthorized}
-              />
+              <li key={dishId}>
+                <MenuLinkContainer
+                  dishId={dishId}
+                  restaurantId={restaurantId}
+                  className={cn.menuItem}
+                />
+              </li>
             );
           })
         ) : (
           <div>Не указано</div>
         )}
-      </div>
+      </ul>
     </div>
   );
 };

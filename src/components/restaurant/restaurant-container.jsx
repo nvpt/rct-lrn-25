@@ -4,7 +4,6 @@ import {
   selectRestaurantsIds,
 } from '../../redux/entities/restaurants/restaurants-slice';
 import { Restaurant } from './restaurant';
-import { AuthContext } from '../../providers/auth-provider';
 import { useContext } from 'react';
 import { ThemeContext } from '../../providers/theme-provider';
 
@@ -13,7 +12,6 @@ export const RestaurantContainer = ({ selectedRestaurantId }) => {
     selectRestaurantById(state, selectedRestaurantId)
   );
   const restaurantsIds = useSelector(selectRestaurantsIds);
-  const { user } = useContext(AuthContext);
   const { theme } = useContext(ThemeContext);
 
   if (!restaurant) {
@@ -31,7 +29,6 @@ export const RestaurantContainer = ({ selectedRestaurantId }) => {
     <Restaurant
       restaurant={restaurant}
       restaurantNumber={restaurantNumber(selectedRestaurantId)}
-      isAuthorized={user?.name}
       theme={theme}
     />
   );
