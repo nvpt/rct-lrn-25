@@ -40,7 +40,6 @@ export const App = () => {
                 </Route>
                 <Route path='dish/:dishId' element={<DishLayout />}>
                   <Route index element={<DishPage />}></Route>
-                  <Route path='*' element={<div>Меню не найдено</div>} />
                 </Route>
                 <Route
                   path='*'
