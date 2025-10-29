@@ -1,31 +1,36 @@
-import { MenuItem } from './menu-item/menu-item';
-import { MenuItemContainer } from './menu-item/menu-item-container';
+import { useOutletContext } from 'react-router';
 import cn from './menu.module.css';
+import { MenuLinkContainer } from './menu-link-container';
+import { useSelector } from 'react-redux';
+import { selectRestaurantById } from '../../../redux/entities/restaurants/restaurants-slice';
 
-const minDishCount = 0;
-const maxDishCount = 5;
-export const Menu = ({ menu, isAuthorized }) => {
+export const Menu = () => {
+  const { restaurantId } = useOutletContext();
+  const restaurant = useSelector((state) =>
+    selectRestaurantById(state, restaurantId)
+  );
+  const { menu: menuIds } = restaurant;
+
   return (
     <div>
       <h3>Меню</h3>
-      <div>
-        {menu.length ? (
-          menu.map((dishId) => {
+      <ul>
+        {menuIds?.length ? (
+          menuIds.map((menuId) => {
             return (
-              <MenuItemContainer
-                key={dishId}
-                dishId={dishId}
-                minDishCount={minDishCount}
-                maxDishCount={maxDishCount}
-                className={cn.menuItem}
-                isAuthorized={isAuthorized}
-              />
+              <li key={menuId}>
+                <MenuLinkContainer
+                  menuId={menuId}
+                  restaurantId={restaurantId}
+                  className={cn.menuItem}
+                />
+              </li>
             );
           })
         ) : (
           <div>Не указано</div>
         )}
-      </div>
+      </ul>
     </div>
   );
 };

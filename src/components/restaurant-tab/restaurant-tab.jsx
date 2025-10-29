@@ -1,14 +1,13 @@
 import { useSelector } from 'react-redux';
 import { selectRestaurantById } from '../../redux/entities/restaurants/restaurants-slice';
-import { Button } from '../button/button';
+import { useContext } from 'react';
+import { ThemeContext } from '../../providers/theme-provider';
+import { NavLinkCustom } from '../navlink-custom/navlink-custom';
+import cn from './restaurant-tab.module.css';
 
-export const RestaurantTab = ({
-  id,
-  className,
-  selectRestaurantId,
-  selectedRestaurantId,
-}) => {
+export const RestaurantTab = ({ id }) => {
   const restaurant = useSelector((state) => selectRestaurantById(state, id));
+  const { theme } = useContext(ThemeContext);
 
   if (!restaurant) {
     return null;
@@ -16,12 +15,8 @@ export const RestaurantTab = ({
 
   const { name } = restaurant;
   return (
-    <Button
-      className={className}
-      key={id}
-      onClick={() => selectRestaurantId(id)}
-      title={name}
-      isActive={selectedRestaurantId === id}
-    />
+    <NavLinkCustom to={`/restaurants/${id}`} className={cn.tab} theme={theme}>
+      {name}
+    </NavLinkCustom>
   );
 };

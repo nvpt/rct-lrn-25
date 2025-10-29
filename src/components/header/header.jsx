@@ -1,13 +1,10 @@
 import { useContext } from 'react';
 import cn from './header.module.css';
-import {
-  THEME_MAP,
-  THEME_OPTIONS,
-  ThemeContext,
-} from '../../providers/theme-provider';
+import { THEME_OPTIONS, ThemeContext } from '../../providers/theme-provider';
 import { AuthContext } from '../../providers/auth-provider';
 import { Button } from '../button/button';
 import { Cart } from '../cart/cart';
+import { Link, useLocation } from 'react-router';
 
 const someUser = {
   name: 'Zato',
@@ -16,6 +13,7 @@ const someUser = {
 export const Header = () => {
   const { theme, changeTheme } = useContext(ThemeContext);
   const { user, changeAuthorize } = useContext(AuthContext);
+  const location = useLocation();
 
   /**
    * Изменить тему
@@ -27,7 +25,19 @@ export const Header = () => {
 
   return (
     <header className={cn.header}>
-      <Cart />
+      <div className={cn.leftPart}>
+        <Link to={'/'} disabled={location.pathname === '/'}>
+          <img
+            src='../../../public/icons/home-icon.png'
+            alt='Перейти на главную'
+            title='Перейти на главную'
+            width={'50px'}
+            height={'50px'}
+            className={cn.home}
+          />
+        </Link>
+        <Cart />
+      </div>
 
       <div className={cn.rightPart}>
         <div className={cn.user}>

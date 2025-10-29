@@ -1,26 +1,35 @@
 import { useSelector } from 'react-redux';
-import { selectRestaurantById } from '../../redux/entities/restaurants/restaurants-slice';
+import {
+  selectRestaurantById,
+  selectRestaurantsIds,
+} from '../../redux/entities/restaurants/restaurants-slice';
 import { Restaurant } from './restaurant';
-import { AuthContext } from '../../providers/auth-provider';
 import { useContext } from 'react';
+import { ThemeContext } from '../../providers/theme-provider';
 
-export const RestaurantContainer = ({
-  selectedRestaurantId,
-  restaurantNumber,
-}) => {
+export const RestaurantContainer = ({ selectedRestaurantId }) => {
   const restaurant = useSelector((state) =>
     selectRestaurantById(state, selectedRestaurantId)
   );
-  const { user } = useContext(AuthContext);
+  const restaurantsIds = useSelector(selectRestaurantsIds);
+  const { theme } = useContext(ThemeContext);
 
   if (!restaurant) {
     return null;
   }
+
+  /**
+   * Получение номера таба для моков скролл-прогресс-бара.
+   */
+  const restaurantNumber = (selectedRestaurantId) => {
+    return restaurantsIds.findIndex((id) => selectedRestaurantId === id) + 1;
+  };
+
   return (
     <Restaurant
       restaurant={restaurant}
-      restaurantNumber={restaurantNumber}
-      isAuthorized={user?.name}
+      restaurantNumber={restaurantNumber(selectedRestaurantId)}
+      theme={theme}
     />
   );
 };

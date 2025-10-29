@@ -1,0 +1,28 @@
+:root {
+    /* Базовая палитра */
+    --light-gray: lightgray;
+    --light-gray-hover: lightslategray;
+    --light-green: lightgreen;
+    --light-green-hover: lightseagreen;
+    --light-blue: lightblue;
+    --light-blue-hover: lightsteelblue;
+    --dark-gray: #3b3b3b;
+
+    /* Контекстные цвета */
+    /* Темы */
+    --gray-theme: var(--light-gray);
+    --gray-theme-hover: var(--light-gray-hover);
+
+    --green-theme: var(--light-green);
+    --green-theme-hover: var(--light-green-hover);
+
+    --blue-theme: var(--light-blue);
+    --blue-theme-hover: var(--light-blue-hover);
+
+    --default-theme: var(--gray-theme);
+    --default-theme-hover: var(--gray-theme-hover);
+
+
+    /* Шрифты */
+    --font-color: var(--dark-gray);
+}
