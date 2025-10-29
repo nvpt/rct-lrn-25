@@ -1,14 +1,10 @@
 import { useContext } from 'react';
 import cn from './header.module.css';
-import {
-  THEME_MAP,
-  THEME_OPTIONS,
-  ThemeContext,
-} from '../../providers/theme-provider';
+import { THEME_OPTIONS, ThemeContext } from '../../providers/theme-provider';
 import { AuthContext } from '../../providers/auth-provider';
 import { Button } from '../button/button';
 import { Cart } from '../cart/cart';
-import { useLocation, useNavigate } from 'react-router';
+import { Link, useLocation } from 'react-router';
 
 const someUser = {
   name: 'Zato',
@@ -17,12 +13,7 @@ const someUser = {
 export const Header = () => {
   const { theme, changeTheme } = useContext(ThemeContext);
   const { user, changeAuthorize } = useContext(AuthContext);
-  const navigate = useNavigate();
   const location = useLocation();
-
-  const isHomeLinkDisabled = () => {
-    return location.pathname === '/';
-  };
 
   /**
    * Изменить тему
@@ -32,25 +23,19 @@ export const Header = () => {
     changeTheme(value);
   };
 
-  const goToHome = () => {
-    if (isHomeLinkDisabled()) {
-      return;
-    }
-    navigate('/');
-  };
-
   return (
     <header className={cn.header}>
       <div className={cn.leftPart}>
-        <img
-          src='../../../public/icons/home-icon.png'
-          alt='Перейти на главную'
-          title='Перейти на главную'
-          width={'50px'}
-          height={'50px'}
-          className={cn.home}
-          onClick={goToHome}
-        />
+        <Link to={'/'} disabled={location.pathname === '/'}>
+          <img
+            src='../../../public/icons/home-icon.png'
+            alt='Перейти на главную'
+            title='Перейти на главную'
+            width={'50px'}
+            height={'50px'}
+            className={cn.home}
+          />
+        </Link>
         <Cart />
       </div>
 

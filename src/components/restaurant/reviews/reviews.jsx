@@ -4,9 +4,16 @@ import { ReviewForm } from './review-form/review-form';
 import cn from './reviews.module.css';
 import { useCallback, useContext } from 'react';
 import { AuthContext } from '../../../providers/auth-provider';
+import { useSelector } from 'react-redux';
+import { selectRestaurantById } from '../../../redux/entities/restaurants/restaurants-slice';
 
 export const Reviews = () => {
-  const { reviewsIds } = useOutletContext();
+  const { restaurantId } = useOutletContext();
+  const restaurant = useSelector((state) =>
+    selectRestaurantById(state, restaurantId)
+  );
+  const { reviews: reviewsIds } = restaurant;
+
   const { user } = useContext(AuthContext);
   const isAuthorized = useCallback(() => !!user?.name, [user?.name]);
   return (

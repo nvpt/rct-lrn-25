@@ -13,13 +13,13 @@ export const DishPage = () => {
     [searchParams]
   );
 
-  const restaurantId = useCallback(() => getParam('restaurantId'), [getParam]);
+  const restaurantId = getParam('restaurantId');
 
   return (
     <div className={cn.page}>
       <DishContainer
         dishId={dishId}
-        restaurantId={restaurantId()}
+        restaurantId={restaurantId}
         className={cn.dish}
       />
     </div>

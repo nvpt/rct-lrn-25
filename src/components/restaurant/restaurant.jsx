@@ -4,12 +4,7 @@ import { NavLinkCustom } from '../navlink-custom/navlink-custom';
 import { Outlet } from 'react-router';
 
 export const Restaurant = ({ restaurant, restaurantNumber, theme }) => {
-  const {
-    menu,
-    reviews: reviewsIds,
-    name: restaurantTitle,
-    id: restaurantId,
-  } = restaurant;
+  const { name: restaurantTitle, id: restaurantId } = restaurant;
 
   return (
     <div className={cn.restaurant}>
@@ -25,7 +20,7 @@ export const Restaurant = ({ restaurant, restaurantNumber, theme }) => {
       </div>
 
       {/* Меню и Отзывы */}
-      <Outlet context={{ menu, reviewsIds, restaurantId }} />
+      <Outlet context={{ restaurantId }} />
       <br />
       <br />
       {/* Мок для демонстрации скролл-прогресс-бара. */}

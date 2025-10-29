@@ -1,19 +1,26 @@
 import { useOutletContext } from 'react-router';
 import cn from './menu.module.css';
 import { MenuLinkContainer } from './menu-link-container';
+import { useSelector } from 'react-redux';
+import { selectRestaurantById } from '../../../redux/entities/restaurants/restaurants-slice';
 
 export const Menu = () => {
-  const { menu, restaurantId } = useOutletContext();
+  const { restaurantId } = useOutletContext();
+  const restaurant = useSelector((state) =>
+    selectRestaurantById(state, restaurantId)
+  );
+  const { menu: menuIds } = restaurant;
+
   return (
     <div>
       <h3>Меню</h3>
       <ul>
-        {menu?.length ? (
-          menu.map((dishId) => {
+        {menuIds?.length ? (
+          menuIds.map((menuId) => {
             return (
-              <li key={dishId}>
+              <li key={menuId}>
                 <MenuLinkContainer
-                  dishId={dishId}
+                  menuId={menuId}
                   restaurantId={restaurantId}
                   className={cn.menuItem}
                 />
