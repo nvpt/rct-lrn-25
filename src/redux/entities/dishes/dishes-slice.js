@@ -7,9 +7,6 @@ const entityAdapter = createEntityAdapter();
 export const dishesSlice = createSlice({
   name: 'dishes',
   initialState: entityAdapter.getInitialState({ requestStatus: 'idle' }),
-  selectors: {
-    selectDishesRequestStatus: (dishesState) => dishesState.requestStatus,
-  },
   extraReducers: (builder) =>
     builder
       .addCase(getDishesOfRestaurant.pending, (state) => {
@@ -26,5 +23,3 @@ export const dishesSlice = createSlice({
 
 export const { selectIds: selectDishesIds, selectById: selectDishById } =
   entityAdapter.getSelectors((state) => state[dishesSlice.name]);
-
-export const { selectDishesRequestStatus } = dishesSlice.selectors;
