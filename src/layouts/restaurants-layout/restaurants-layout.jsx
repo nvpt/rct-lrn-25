@@ -1,14 +1,30 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RestaurantTab } from '../../components/restaurant-tab/restaurant-tab';
-import { RestaurantContainer } from '../../components/restaurant/restaurant-container';
-import { ScrollProgressBar } from '../../components/scroll-progress-bar/scroll-progress-bar';
 import { Tabs } from '../../components/tabs/tabs';
-import { selectRestaurantsIds } from '../../redux/entities/restaurants/restaurants-slice';
+import {
+  selectRequestStatus,
+  selectRestaurantsIds,
+} from '../../redux/entities/restaurants/restaurants-slice';
 import cn from './restaurants-layout.module.css';
 import { Outlet } from 'react-router';
+import { useEffect } from 'react';
+import { getRestaurants } from '../../redux/entities/restaurants/get-restaurants';
 
 export const RestaurantsLayout = ({ title }) => {
   const restaurantsIds = useSelector(selectRestaurantsIds);
+  const requestStatus = useSelector(selectRequestStatus);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getRestaurants());
+  }, [dispatch]);
+
+  if (requestStatus === 'pending') {
+    return 'загрузка...';
+  }
+
+  if (requestStatus === 'rejected') {
+    return 'ошибка';
+  }
 
   return (
     <div className={cn.restaurantPage}>
