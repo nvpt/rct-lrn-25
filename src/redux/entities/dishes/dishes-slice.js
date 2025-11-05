@@ -1,24 +1,15 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { getDishesOfRestaurant } from './get-dishes-of-restaurant';
-import { REQUEST_STATUS } from '../../../constants/api-const';
 
 const entityAdapter = createEntityAdapter();
 
 export const dishesSlice = createSlice({
   name: 'dishes',
-  initialState: entityAdapter.getInitialState({ requestStatus: 'idle' }),
+  initialState: entityAdapter.getInitialState(),
   extraReducers: (builder) =>
-    builder
-      .addCase(getDishesOfRestaurant.pending, (state) => {
-        state.requestStatus = REQUEST_STATUS.pending;
-      })
-      .addCase(getDishesOfRestaurant.fulfilled, (state, payload) => {
-        entityAdapter.setAll(state, payload);
-        state.requestStatus = REQUEST_STATUS.fulfilled;
-      })
-      .addCase(getDishesOfRestaurant.rejected, (state) => {
-        state.requestStatus = REQUEST_STATUS.rejected;
-      }),
+    builder.addCase(getDishesOfRestaurant.fulfilled, (state, payload) => {
+      entityAdapter.setAll(state, payload);
+    }),
 });
 
 export const { selectIds: selectDishesIds, selectById: selectDishById } =
