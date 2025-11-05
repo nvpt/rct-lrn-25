@@ -1,6 +1,7 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { getRestaurants } from './get-restaurants';
 import { getRestaurantById } from './get-restaurant-by-id';
+import { REQUEST_STATUS } from '../../../constants/api-const';
 
 const entityAdapter = createEntityAdapter();
 
@@ -13,19 +14,19 @@ export const restaurantsSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(getRestaurants.pending, (state, action) => {
-        state.requestStatus = 'pending';
+        state.requestStatus = REQUEST_STATUS.pending;
       })
       .addCase(getRestaurants.fulfilled, (state, { payload }) => {
         entityAdapter.setAll(state, payload);
-        state.requestStatus = 'fulfilled ';
+        state.requestStatus = REQUEST_STATUS.fulfilled;
       })
       .addCase(getRestaurants.rejected, (state, action) => {
-        state.requestStatus = 'rejected';
+        state.requestStatus = REQUEST_STATUS.rejected;
       })
       .addCase(getRestaurantById.fulfilled, (state, { payload }) => {
         //todo перезаписывает объект в entities с соотвтутствующим id?
         entityAdapter.setOne(state, payload);
-        state.requestStatus = 'fulfilled ';
+        state.requestStatus = REQUEST_STATUS.fulfilled;
       }),
 });
 

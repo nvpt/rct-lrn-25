@@ -1,30 +1,31 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { REQUEST_STATUS } from '../../../constants/api-const';
 
 export const requestSlice = createSlice({
   name: 'request',
   initialState: {},
   selectors: {
     selectStatus: (state, id) => state[id],
-    selectIsLoading: (state, id) => state[id] === 'pending',
+    selectIsLoading: (state, id) => state[id] === REQUEST_STATUS.pending,
   },
   extraReducers: (builder) =>
     builder
       .addMatcher(
-        ({ type }) => type.endsWith('/pending'),
+        ({ type }) => type.endsWith(`/${REQUEST_STATUS.pending}`),
         (state, { meta }) => {
-          state[meta.requestId] = 'pending';
+          state[meta.requestId] = REQUEST_STATUS.pending;
         }
       )
       .addMatcher(
-        ({ type }) => type.endsWith('/fulfilled'),
+        ({ type }) => type.endsWith(`/${REQUEST_STATUS.fulfilled}`),
         (state, { meta }) => {
-          state[meta.requestId] = 'fulfilled';
+          state[meta.requestId] = REQUEST_STATUS.fulfilled;
         }
       )
       .addMatcher(
-        ({ type }) => type.endsWith('/rejected'),
+        ({ type }) => type.endsWith(`/${REQUEST_STATUS.rejected}`),
         (state, { meta }) => {
-          state[meta.requestId] = 'rejected';
+          state[meta.requestId] = REQUEST_STATUS.rejected;
         }
       ),
   // todo по идее можно так:

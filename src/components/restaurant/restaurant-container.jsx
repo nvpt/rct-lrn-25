@@ -8,6 +8,7 @@ import { useContext } from 'react';
 import { ThemeContext } from '../../providers/theme-provider';
 import { useRequest } from '../../redux/hooks/use-request';
 import { getRestaurantById } from '../../redux/entities/restaurants/get-restaurant-by-id';
+import { REQUEST_STATUS } from '../../constants/api-const';
 
 export const RestaurantContainer = ({ selectedRestaurantId }) => {
   const restaurant = useSelector((state) =>
@@ -19,11 +20,11 @@ export const RestaurantContainer = ({ selectedRestaurantId }) => {
 
   const { theme } = useContext(ThemeContext);
 
-  if (requestStatus === 'pending') {
+  if (requestStatus === REQUEST_STATUS.pending) {
     return 'загрузка данных ресторана...';
   }
 
-  if (requestStatus === 'rejected') {
+  if (requestStatus === REQUEST_STATUS.rejected) {
     return 'ошибка загрузки данных по ресторану';
   }
 
