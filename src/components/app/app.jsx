@@ -26,8 +26,6 @@ export const App = () => {
                 <Route index element={<HomePage />} />
                 <Route path='restaurants' element={<RestaurantsLayout />}>
                   <Route index element={<RestaurantsPage />} />
-                  {/* 1. Можно ли ставить оутлет не в RestaurantPage, а в его вложенном компоненте Restaurant?
-                  Я пока сделал так */}
                   <Route path=':restaurantId' element={<RestaurantPage />}>
                     <Route index element={<Navigate to='menu' />} />
                     <Route path='menu' element={<Menu />} />
