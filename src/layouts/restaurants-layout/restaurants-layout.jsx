@@ -2,27 +2,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RestaurantTab } from '../../components/restaurant-tab/restaurant-tab';
 import { Tabs } from '../../components/tabs/tabs';
 import {
-  selectRequestStatus,
+  selectRestaurantsRequestStatus,
   selectRestaurantsIds,
 } from '../../redux/entities/restaurants/restaurants-slice';
 import cn from './restaurants-layout.module.css';
 import { Outlet } from 'react-router';
 import { useEffect } from 'react';
 import { getRestaurants } from '../../redux/entities/restaurants/get-restaurants';
+import { REQUEST_STATUS } from '../../constants/api-const';
 
 export const RestaurantsLayout = ({ title }) => {
   const restaurantsIds = useSelector(selectRestaurantsIds);
-  const requestStatus = useSelector(selectRequestStatus);
+  const requestStatus = useSelector(selectRestaurantsRequestStatus);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getRestaurants());
   }, [dispatch]);
 
-  if (requestStatus === 'pending') {
+  if (requestStatus === REQUEST_STATUS.pending) {
     return 'загрузка...';
   }
 
-  if (requestStatus === 'rejected') {
+  if (requestStatus === REQUEST_STATUS.rejected) {
     return 'ошибка';
   }
 

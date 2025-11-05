@@ -1,15 +1,35 @@
 import { useOutletContext } from 'react-router';
 import cn from './menu.module.css';
 import { MenuLinkContainer } from './menu-link-container';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectRestaurantById } from '../../../redux/entities/restaurants/restaurants-slice';
+import { useEffect } from 'react';
+import { getRestaurantById } from '../../../redux/entities/restaurants/get-restaurant-by-id';
+import {
+  selectDishesIds,
+  selectDishesRequestStatus,
+} from '../../../redux/entities/dishes/dishes-slice';
+import { REQUEST_STATUS } from '../../../constants/api-const';
+import { getDishesOfRestaurant } from '../../../redux/entities/dishes/get-dishes-of-restaurant';
 
 export const Menu = () => {
   const { restaurantId } = useOutletContext();
-  const restaurant = useSelector((state) =>
-    selectRestaurantById(state, restaurantId)
-  );
-  const { menu: menuIds } = restaurant;
+  const requestDishesStatus = useSelector(selectDishesRequestStatus);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getDishesOfRestaurant(restaurantId));
+  }, [dispatch, restaurantId]);
+  const menuIds = useSelector(selectDishesIds);
+
+  if (requestDishesStatus === REQUEST_STATUS.pending) {
+    return 'загрузка меню...';
+  }
+
+  if (requestDishesStatus === REQUEST_STATUS.rejected) {
+    return 'ошибка загрузки меню...';
+  }
 
   return (
     <div>
