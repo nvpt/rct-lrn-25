@@ -6,13 +6,26 @@ import {
 import { Restaurant } from './restaurant';
 import { useContext } from 'react';
 import { ThemeContext } from '../../providers/theme-provider';
+import { useRequest } from '../../redux/hooks/use-request';
+import { getRestaurantById } from '../../redux/entities/restaurants/get-restaurant-by-id';
 
 export const RestaurantContainer = ({ selectedRestaurantId }) => {
   const restaurant = useSelector((state) =>
     selectRestaurantById(state, selectedRestaurantId)
   );
   const restaurantsIds = useSelector(selectRestaurantsIds);
+
+  const requestStatus = useRequest(getRestaurantById, selectedRestaurantId);
+
   const { theme } = useContext(ThemeContext);
+
+  if (requestStatus === 'pending') {
+    return 'загрузка данных ресторана...';
+  }
+
+  if (requestStatus === 'rejected') {
+    return 'ошибка загрузки данных по ресторану';
+  }
 
   if (!restaurant) {
     return null;

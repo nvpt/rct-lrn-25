@@ -1,5 +1,6 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { getRestaurants } from './get-restaurants';
+import { getRestaurantById } from './get-restaurant-by-id';
 
 const entityAdapter = createEntityAdapter();
 
@@ -20,6 +21,11 @@ export const restaurantsSlice = createSlice({
       })
       .addCase(getRestaurants.rejected, (state, action) => {
         state.requestStatus = 'rejected';
+      })
+      .addCase(getRestaurantById.fulfilled, (state, { payload }) => {
+        //todo перезаписывает объект в entities с соотвтутствующим id?
+        entityAdapter.setOne(state, payload);
+        state.requestStatus = 'fulfilled ';
       }),
 });
 
