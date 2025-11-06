@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-import { ReviewContainer } from './review-container';
 import { selectUserById } from '../../redux/entities/users/users-slice';
 
 export const Review = ({ review }) => {

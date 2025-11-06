@@ -9,6 +9,7 @@ import { selectReviewsIds } from '../../../redux/entities/reviews/reviews-slice'
 import { useRequest } from '../../../redux/hooks/use-request';
 import { getReviewsOfRestaurant } from '../../../redux/entities/reviews/get-reviews-of-restaurant';
 import { REQUEST_STATUS } from '../../../constants/api-const';
+import { getUsers } from '../../../redux/entities/users/get-users';
 
 export const Reviews = () => {
   const reviewsIds = useSelector(selectReviewsIds);
@@ -17,13 +18,20 @@ export const Reviews = () => {
   const isAuthorized = useCallback(() => !!user?.name, [user?.name]);
 
   const { restaurantId } = useOutletContext();
-  const requestStatus = useRequest(getReviewsOfRestaurant, restaurantId);
+  const rewiewsRequestStatus = useRequest(getReviewsOfRestaurant, restaurantId);
+  const usersRequestStatus = useRequest(getUsers);
 
-  if (requestStatus === REQUEST_STATUS.pending) {
+  if (
+    rewiewsRequestStatus === REQUEST_STATUS.pending ||
+    usersRequestStatus === REQUEST_STATUS.pending
+  ) {
     return 'загрузка отзывов...';
   }
 
-  if (requestStatus === REQUEST_STATUS.rejected) {
+  if (
+    rewiewsRequestStatus === REQUEST_STATUS.rejected ||
+    usersRequestStatus === REQUEST_STATUS.rejected
+  ) {
     return 'ошибка загрузки отзывов...';
   }
   return (
