@@ -18,8 +18,6 @@ export const getDishById = createAsyncThunk(
       console.log('get-dish-by-id.js 18 >>> err:', err);
     }
   },
-
-  // todo нет смысла, так как все данные подтягиваются на странице меню ресторана
   {
     condition: (id, { getState }) => !selectDishById(getState(), id),
   }
