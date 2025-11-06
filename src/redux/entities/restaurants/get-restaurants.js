@@ -14,8 +14,6 @@ export const getRestaurants = createAsyncThunk(
       }
 
       return result;
-
-      // todo здесь тоже отработает rejected?
     } catch (err) {
       console.log('get-restaurants.js 20 >>> err:', err);
     }
