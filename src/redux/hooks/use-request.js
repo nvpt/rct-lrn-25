@@ -14,8 +14,6 @@ export const useRequest = (thunk, params) => {
     setRequest(request);
 
     return () => {
-      // todo в какой момент это отработает? Ведь Хук не имеет своего рендера. Это событие привязано к компоненту, 
-      // в котором он вызывается?
       request.abort();
       setRequest(null);
     };
