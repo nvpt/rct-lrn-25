@@ -5,17 +5,35 @@ import cn from './reviews.module.css';
 import { useCallback, useContext } from 'react';
 import { AuthContext } from '../../../providers/auth-provider';
 import { useSelector } from 'react-redux';
-import { selectRestaurantById } from '../../../redux/entities/restaurants/restaurants-slice';
+import { selectReviewsIds } from '../../../redux/entities/reviews/reviews-slice';
+import { useRequest } from '../../../redux/hooks/use-request';
+import { getReviewsOfRestaurant } from '../../../redux/entities/reviews/get-reviews-of-restaurant';
+import { REQUEST_STATUS } from '../../../constants/api-const';
+import { getUsers } from '../../../redux/entities/users/get-users';
 
 export const Reviews = () => {
-  const { restaurantId } = useOutletContext();
-  const restaurant = useSelector((state) =>
-    selectRestaurantById(state, restaurantId)
-  );
-  const { reviews: reviewsIds } = restaurant;
+  const reviewsIds = useSelector(selectReviewsIds);
 
   const { user } = useContext(AuthContext);
   const isAuthorized = useCallback(() => !!user?.name, [user?.name]);
+
+  const { restaurantId } = useOutletContext();
+  const rewiewsRequestStatus = useRequest(getReviewsOfRestaurant, restaurantId);
+  const usersRequestStatus = useRequest(getUsers);
+
+  if (
+    rewiewsRequestStatus === REQUEST_STATUS.pending ||
+    usersRequestStatus === REQUEST_STATUS.pending
+  ) {
+    return 'загрузка отзывов...';
+  }
+
+  if (
+    rewiewsRequestStatus === REQUEST_STATUS.rejected ||
+    usersRequestStatus === REQUEST_STATUS.rejected
+  ) {
+    return 'ошибка загрузки отзывов...';
+  }
   return (
     <div>
       <h3>Отзывы</h3>
