@@ -1,16 +1,12 @@
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router';
-import { selectDishById } from '../../../redux/entities/dishes/dishes-slice';
 
-export const MenuLinkContainer = ({ menuId, restaurantId, className }) => {
-  const dish = useSelector((state) => selectDishById(state, menuId));
+export const MenuLinkContainer = ({ menu, restaurantId, className }) => {
   return (
     <Link
-      key={menuId}
-      to={`/dish/${menuId}?restaurantId=${restaurantId}`}
+      to={`/dish/${menu.id}?restaurantId=${restaurantId}`}
       className={className}
     >
-      {dish.name}
+      {menu.name}
     </Link>
   );
 };

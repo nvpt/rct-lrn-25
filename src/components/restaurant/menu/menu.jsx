@@ -1,26 +1,22 @@
 import { useOutletContext } from 'react-router';
 import cn from './menu.module.css';
 import { MenuLinkContainer } from './menu-link-container';
-import { useSelector } from 'react-redux';
-import {
-  selectDishesIds
-} from '../../../redux/entities/dishes/dishes-slice';
-import { REQUEST_STATUS } from '../../../constants/api-const';
-import { getDishesOfRestaurant } from '../../../redux/entities/dishes/get-dishes-of-restaurant';
-import { useRequest } from '../../../redux/hooks/use-request';
+import { useGetDishesByRestaurantIdQuery } from '../../../redux/services/api';
 
 export const Menu = () => {
   const { restaurantId } = useOutletContext();
 
-  const requestStatus = useRequest(getDishesOfRestaurant, restaurantId);
+  const {
+    data: menus,
+    isLoading,
+    isError,
+  } = useGetDishesByRestaurantIdQuery(restaurantId);
 
-  const menuIds = useSelector(selectDishesIds);
-
-  if (requestStatus === REQUEST_STATUS.pending) {
+  if (isLoading) {
     return 'загрузка меню...';
   }
 
-  if (requestStatus === REQUEST_STATUS.rejected) {
+  if (isError) {
     return 'ошибка загрузки меню...';
   }
 
@@ -28,12 +24,12 @@ export const Menu = () => {
     <div>
       <h3>Меню</h3>
       <ul>
-        {menuIds?.length ? (
-          menuIds.map((menuId) => {
+        {menus?.length ? (
+          menus.map((menu) => {
             return (
-              <li key={menuId}>
+              <li key={menu.id}>
                 <MenuLinkContainer
-                  menuId={menuId}
+                  menu={menu}
                   restaurantId={restaurantId}
                   className={cn.menuItem}
                 />

@@ -15,6 +15,12 @@ export const apiSlice = createApi({
       query: (restaurantId) => `/reviews?restaurantId=${restaurantId}`,
       providesTags: () => [{ type: 'reviews', id: 'ALL' }],
     }),
+    getDishById: builder.query({
+      query: (dishId) => `/dish/${dishId}`,
+    }),
+    getDishesByRestaurantId: builder.query({
+      query: (restaurantId) => `/dishes?restaurantId=${restaurantId}`,
+    }),
     addReview: builder.mutation({
       query: ({ restaurantId, review }) => ({
         url: `review/${restaurantId}`,
@@ -32,4 +38,6 @@ export const {
   useGetRestaurantByIdQuery,
   useAddReviewMutation,
   useGetReviewsByRestaurantIdQuery,
+  useGetDishByIdQuery,
+  useGetDishesByRestaurantIdQuery,
 } = apiSlice;
