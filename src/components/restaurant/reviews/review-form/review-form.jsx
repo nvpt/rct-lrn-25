@@ -45,7 +45,7 @@ const reducer = (state, action) => {
   }
 };
 
-export const ReviewForm = ({ className }) => {
+export const ReviewForm = ({ className, onSubmit }) => {
   const [form, dispatch] = useReducer(reducer, INITIAL_FORM);
   const { name, text, rating } = form;
 
@@ -104,6 +104,7 @@ export const ReviewForm = ({ className }) => {
         />
         <Button
           className={cn.button}
+          onClick={() => onSubmit({ form })}
           title={'Отправить'}
         />
       </form>

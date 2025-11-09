@@ -10,6 +10,7 @@ import { useRequest } from '../../../redux/hooks/use-request';
 import { getReviewsOfRestaurant } from '../../../redux/entities/reviews/get-reviews-of-restaurant';
 import { REQUEST_STATUS } from '../../../constants/api-const';
 import { getUsers } from '../../../redux/entities/users/get-users';
+import { ReviewFormContainer } from './review-form/review-form-container';
 
 export const Reviews = () => {
   const reviewsIds = useSelector(selectReviewsIds);
@@ -49,7 +50,12 @@ export const Reviews = () => {
       )}
 
       <br />
-      {isAuthorized() && <ReviewForm className={cn.reviewForm} />}
+      {isAuthorized() && (
+        <ReviewFormContainer
+          className={cn.reviewForm}
+          restaurantId={restaurantId}
+        />
+      )}
     </div>
   );
 };
