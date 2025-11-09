@@ -8,6 +8,7 @@ const FORM_ACTYON_TYPE = {
   setName: 'SET_NAME',
   setText: 'SET_TEXT',
   setRating: 'SET_RATING',
+  clearForm: 'CLEAR_FORM',
 };
 
 const INITIAL_FORM = {
@@ -33,6 +34,10 @@ const reducer = (state, action) => {
         ...state,
         rating: action.payload,
       };
+    case FORM_ACTYON_TYPE.clearForm:
+      return {
+        ...INITIAL_FORM,
+      };
     default:
       return {
         ...state,
@@ -52,6 +57,9 @@ export const ReviewForm = ({ className }) => {
   };
   const setRating = (rating) => {
     dispatch({ type: FORM_ACTYON_TYPE.setRating, payload: rating });
+  };
+  const clearForm = () => {
+    dispatch({ type: FORM_ACTYON_TYPE.clearForm });
   };
 
   return (
@@ -89,7 +97,15 @@ export const ReviewForm = ({ className }) => {
             decrement={() => setRating(rating - 1)}
           />
         </div>
-        <Button className={cn.button} title={'Написать'} />
+        <Button
+          className={cn.button}
+          title={'Очистить форму'}
+          onClick={clearForm}
+        />
+        <Button
+          className={cn.button}
+          title={'Отправить'}
+        />
       </form>
     </div>
   );
