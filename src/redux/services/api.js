@@ -11,6 +11,8 @@ export const apiSlice = createApi({
     getRestaurantById: builder.query({
       query: (restaurantId) => `/restaurant/${restaurantId}`,
     }),
+
+    // todo каким образом при тегировании осуществлять предварительный вывод данных в форме (до загрузки с сервера)?
     getReviewsByRestaurantId: builder.query({
       query: (restaurantId) => `/reviews?restaurantId=${restaurantId}`,
       providesTags: () => [{ type: 'reviews', id: 'ALL' }],
