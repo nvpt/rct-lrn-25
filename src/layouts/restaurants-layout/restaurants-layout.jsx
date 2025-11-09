@@ -1,22 +1,17 @@
-import { useSelector } from 'react-redux';
 import { RestaurantTab } from '../../components/restaurant-tab/restaurant-tab';
 import { Tabs } from '../../components/tabs/tabs';
-import { selectRestaurantsIds } from '../../redux/entities/restaurants/restaurants-slice';
 import cn from './restaurants-layout.module.css';
 import { Outlet } from 'react-router';
-import { getRestaurants } from '../../redux/entities/restaurants/get-restaurants';
-import { REQUEST_STATUS } from '../../constants/api-const';
-import { useRequest } from '../../redux/hooks/use-request';
+import { useGetRestaurantsQuery } from '../../redux/services/api';
 
 export const RestaurantsLayout = ({ title }) => {
-  const restaurantsIds = useSelector(selectRestaurantsIds);
-  const requestStatus = useRequest(getRestaurants);
+  const { isError, isLoading, data: restaurants } = useGetRestaurantsQuery();
 
-  if (requestStatus === REQUEST_STATUS.pending) {
+  if (isLoading) {
     return 'загрузка рессторанов...';
   }
 
-  if (requestStatus === REQUEST_STATUS.rejected) {
+  if (isError) {
     return 'ошибка загрузки ресторанов';
   }
 
@@ -25,8 +20,8 @@ export const RestaurantsLayout = ({ title }) => {
       <h1 className={cn.title}>{title}</h1>
       <div className={cn.tabWrapper}>
         <Tabs>
-          {restaurantsIds.map((id) => (
-            <RestaurantTab id={id} key={id} />
+          {restaurants.map((restaurant) => (
+            <RestaurantTab restaurant={restaurant} key={restaurant.id} />
           ))}
         </Tabs>
       </div>

@@ -1,43 +1,54 @@
-import { useSelector } from 'react-redux';
-import {
-  selectRestaurantById,
-  selectRestaurantsIds,
-} from '../../redux/entities/restaurants/restaurants-slice';
 import { Restaurant } from './restaurant';
 import { useContext } from 'react';
 import { ThemeContext } from '../../providers/theme-provider';
-import { useRequest } from '../../redux/hooks/use-request';
-import { getRestaurantById } from '../../redux/entities/restaurants/get-restaurant-by-id';
-import { REQUEST_STATUS } from '../../constants/api-const';
+import {
+  useGetRestaurantByIdQuery,
+  useGetRestaurantsQuery,
+} from '../../redux/services/api';
 
 export const RestaurantContainer = ({ selectedRestaurantId }) => {
-  const restaurant = useSelector((state) =>
-    selectRestaurantById(state, selectedRestaurantId)
-  );
-  const restaurantsIds = useSelector(selectRestaurantsIds);
+  let restaurantsIds = [];
+  let restaurantNumber = 0;
 
-  const requestStatus = useRequest(getRestaurantById, selectedRestaurantId);
+  // todo верно ли выполнено использование кешированного значения квери? Как можно понять, что кешированное значение будет получено  ранее, чем мы обратимся к нему? Возможно, имеет создать хук для обращения к кешированному значению квери?
+  useGetRestaurantsQuery(undefined, {
+    selectFromResult: (result) => {
+      restaurantsIds = result.data.map((restaurant) => restaurant.id);
+
+      /**
+       * Получение номера таба для моков скролл-прогресс-бара.
+       */
+      restaurantNumber = (selectedRestaurantId) => {
+        return (
+          restaurantsIds.findIndex((id) => selectedRestaurantId === id) + 1
+        );
+      };
+      return result;
+    },
+  });
+
+  // todo зачем нужен первый вариант синтаксиса на строке 13, если можно использовать "обычную" запись, которая ниже?
+  // const { data } = useGetRestaurantsQuery();
+
+  const {
+    isLoading,
+    isError,
+    data: restaurant,
+  } = useGetRestaurantByIdQuery(selectedRestaurantId);
 
   const { theme } = useContext(ThemeContext);
 
-  if (requestStatus === REQUEST_STATUS.pending) {
+  if (isLoading) {
     return 'загрузка данных ресторана...';
   }
 
-  if (requestStatus === REQUEST_STATUS.rejected) {
+  if (isError) {
     return 'ошибка загрузки данных по ресторану';
   }
 
   if (!restaurant) {
     return null;
   }
-
-  /**
-   * Получение номера таба для моков скролл-прогресс-бара.
-   */
-  const restaurantNumber = (selectedRestaurantId) => {
-    return restaurantsIds.findIndex((id) => selectedRestaurantId === id) + 1;
-  };
 
   return (
     <Restaurant

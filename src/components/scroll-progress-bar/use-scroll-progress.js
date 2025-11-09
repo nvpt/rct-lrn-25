@@ -26,6 +26,7 @@ const definePositionInPercents = (currentPosition, documentHeight) => {
   return endScrollPosition ? (currentPosition * 100) / endScrollPosition : 0;
 };
 
+// todo скролл почему-то прогргесс стал работать только после атворизации
 export const useScrollProgress = () => {
   /* Текущая позиция скролла в пикселях */
   const [currentPositionInPx, setCurrentPositionInPx] = useState(0);
