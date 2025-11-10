@@ -3,11 +3,11 @@ import { ReviewContainer } from '../../review/review-container';
 import cn from './reviews.module.css';
 import { useCallback, useContext } from 'react';
 import { AuthContext } from '../../../providers/auth-provider';
-import { useRequest } from '../../../redux/hooks/use-request';
-import { REQUEST_STATUS } from '../../../constants/api-const';
-import { getUsers } from '../../../redux/entities/users/get-users';
 import { ReviewFormContainer } from './review-form/review-form-container';
-import { useGetReviewsByRestaurantIdQuery } from '../../../redux/services/api';
+import {
+  useGetReviewsByRestaurantIdQuery,
+  useGetUsersQuery,
+} from '../../../redux/services/api';
 
 export const Reviews = () => {
   const { user } = useContext(AuthContext);
@@ -15,7 +15,8 @@ export const Reviews = () => {
 
   const { restaurantId } = useOutletContext();
 
-  const usersRequestStatus = useRequest(getUsers);
+  const { isLoading: isUsersLoading, isError: isUsersError } =
+    useGetUsersQuery();
   const {
     data: reviews,
     isError: isReviewsError,
@@ -23,11 +24,11 @@ export const Reviews = () => {
   } = useGetReviewsByRestaurantIdQuery(restaurantId);
   console.log('reviews.jsx 26 >>> reviews:', reviews);
 
-  if (isReviewsLoading || usersRequestStatus === REQUEST_STATUS.pending) {
+  if (isReviewsLoading || isUsersLoading) {
     return 'загрузка отзывов...';
   }
 
-  if (isReviewsError || usersRequestStatus === REQUEST_STATUS.rejected) {
+  if (isReviewsError || isUsersError) {
     return 'ошибка загрузки отзывов...';
   }
   return (

@@ -27,7 +27,7 @@ export const DishContainer = ({ dishId, restaurantId, className }) => {
     [dispatch, dishId]
   );
 
-  // todo  квери есть кеширование, но есть ли какой то ручной способ ограничения запросов через квери, по аналогии с condition в санках?
+  // todo  в rtk-query есть инструмент кеширования, но есть ли какой то ручной способ ограничения запросов через квери, по аналогии с condition в санках?
   const { data: dish, isError, isLoading } = useGetDishByIdQuery(dishId);
 
   if (isLoading) {

@@ -1,10 +1,18 @@
-import { useSelector } from 'react-redux';
-import { selectUserById } from '../../redux/entities/users/users-slice';
+import { useGetUsersQuery } from '../../redux/services/api';
 
 export const Review = ({ review }) => {
   const { userId, text, rating } = review;
+  let user = null;
 
-  const user = useSelector((state) => selectUserById(state, userId));
+  useGetUsersQuery(undefined, {
+    selectFromResult: (result) => {
+      console.log('review.jsx 9 >>> result:', result);
+
+      const users = result?.data;
+      user = users.find((userData) => userData.id === userId);
+      return result;
+    },
+  });
 
   if (!user) {
     return null;

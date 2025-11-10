@@ -23,6 +23,9 @@ export const apiSlice = createApi({
     getDishesByRestaurantId: builder.query({
       query: (restaurantId) => `/dishes?restaurantId=${restaurantId}`,
     }),
+    getUsers: builder.query({
+      query: () => '/users',
+    }),
     addReview: builder.mutation({
       query: ({ restaurantId, review }) => ({
         url: `review/${restaurantId}`,
@@ -42,4 +45,5 @@ export const {
   useGetReviewsByRestaurantIdQuery,
   useGetDishByIdQuery,
   useGetDishesByRestaurantIdQuery,
+  useGetUsersQuery,
 } = apiSlice;
