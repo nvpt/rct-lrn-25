@@ -3,7 +3,7 @@ import { cartSlice } from './entities/cart/cart-slice';
 import { apiSlice } from './services/api';
 
 const loggerMiddleWare = (store) => (next) => (action) => {
-  console.log('store.js 9 >>> action:', action);
+  console.log('action:', action);
   return next(action);
 };
 
