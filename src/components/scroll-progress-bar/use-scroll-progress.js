@@ -41,7 +41,7 @@ export const useScrollProgress = () => {
       document.documentElement.scrollHeight
     );
     setCurrentPositionInPx(definePositionInPx());
-  }, [user?.name]);
+  }, [user?.name, currentPositionInPx, documentHeightRef]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,7 +52,7 @@ export const useScrollProgress = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [user?.name]);
+  }, [user?.name, currentPositionInPx, documentHeightRef]);
 
   return (
     definePositionInPercents(currentPositionInPx, documentHeightRef.current) +
