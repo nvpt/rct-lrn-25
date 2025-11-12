@@ -1,17 +1,14 @@
 import { useGetUsersQuery } from '../../redux/services/api';
+import cn from './review.module.css';
 
-export const Review = ({ review }) => {
+export const Review = ({ review, changeReview }) => {
   const { userId, text, rating } = review;
-  let user = null;
 
-  useGetUsersQuery(undefined, {
-    selectFromResult: (result) => {
-      console.log('review.jsx 9 >>> result:', result);
-
-      const users = result?.data;
-      user = users.find((userData) => userData.id === userId);
-      return result;
-    },
+  const { data: user } = useGetUsersQuery(undefined, {
+    selectFromResult: (result) => ({
+      ...result,
+      data: result?.data.find((userData) => userData.id === userId),
+    }),
   });
 
   if (!user) {
