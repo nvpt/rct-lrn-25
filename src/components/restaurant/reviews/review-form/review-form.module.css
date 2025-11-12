@@ -7,6 +7,16 @@
     border-radius: 5px;
 }
 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.closeButton {
+    cursor: pointer;
+}
+
 .formField {
     display: flex;
     flex-direction: column;

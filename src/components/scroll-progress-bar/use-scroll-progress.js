@@ -26,6 +26,7 @@ const definePositionInPercents = (currentPosition, documentHeight) => {
   return endScrollPosition ? (currentPosition * 100) / endScrollPosition : 0;
 };
 
+// todo скролл почему-то прогргесс стал работать только после атворизации
 export const useScrollProgress = () => {
   /* Текущая позиция скролла в пикселях */
   const [currentPositionInPx, setCurrentPositionInPx] = useState(0);
@@ -40,7 +41,7 @@ export const useScrollProgress = () => {
       document.documentElement.scrollHeight
     );
     setCurrentPositionInPx(definePositionInPx());
-  }, [user?.name]);
+  }, [user?.name, currentPositionInPx, documentHeightRef]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,7 +52,7 @@ export const useScrollProgress = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [user?.name]);
+  }, [user?.name, currentPositionInPx, documentHeightRef]);
 
   return (
     definePositionInPercents(currentPositionInPx, documentHeightRef.current) +

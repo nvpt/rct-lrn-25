@@ -1,30 +1,35 @@
-import { useSelector } from 'react-redux';
-import {
-  selectRestaurantById,
-  selectRestaurantsIds,
-} from '../../redux/entities/restaurants/restaurants-slice';
 import { Restaurant } from './restaurant';
 import { useContext } from 'react';
 import { ThemeContext } from '../../providers/theme-provider';
-import { useRequest } from '../../redux/hooks/use-request';
-import { getRestaurantById } from '../../redux/entities/restaurants/get-restaurant-by-id';
-import { REQUEST_STATUS } from '../../constants/api-const';
+import {
+  useGetRestaurantByIdQuery,
+  useGetRestaurantsQuery,
+} from '../../redux/services/api';
 
 export const RestaurantContainer = ({ selectedRestaurantId }) => {
-  const restaurant = useSelector((state) =>
-    selectRestaurantById(state, selectedRestaurantId)
-  );
-  const restaurantsIds = useSelector(selectRestaurantsIds);
+  const { data: restaurantNumber } = useGetRestaurantsQuery(undefined, {
+    selectFromResult: (result) => ({
+      ...result,
+      data:
+        result.data
+          ?.map((restaurant) => restaurant.id)
+          ?.findIndex((id) => selectedRestaurantId === id) + 1,
+    }),
+  });
 
-  const requestStatus = useRequest(getRestaurantById, selectedRestaurantId);
+  const {
+    isLoading,
+    isError,
+    data: restaurant,
+  } = useGetRestaurantByIdQuery(selectedRestaurantId);
 
   const { theme } = useContext(ThemeContext);
 
-  if (requestStatus === REQUEST_STATUS.pending) {
+  if (isLoading) {
     return 'загрузка данных ресторана...';
   }
 
-  if (requestStatus === REQUEST_STATUS.rejected) {
+  if (isError) {
     return 'ошибка загрузки данных по ресторану';
   }
 
@@ -32,17 +37,10 @@ export const RestaurantContainer = ({ selectedRestaurantId }) => {
     return null;
   }
 
-  /**
-   * Получение номера таба для моков скролл-прогресс-бара.
-   */
-  const restaurantNumber = (selectedRestaurantId) => {
-    return restaurantsIds.findIndex((id) => selectedRestaurantId === id) + 1;
-  };
-
   return (
     <Restaurant
       restaurant={restaurant}
-      restaurantNumber={restaurantNumber(selectedRestaurantId)}
+      restaurantNumber={restaurantNumber}
       theme={theme}
     />
   );

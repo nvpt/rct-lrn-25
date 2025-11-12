@@ -1,21 +1,68 @@
-import { useSelector } from 'react-redux';
-import { selectUserById } from '../../redux/entities/users/users-slice';
+import { useCallback, useContext, useState } from 'react';
+import {
+  useGetUsersQuery,
+  useUpdateReviewMutation,
+} from '../../redux/services/api';
+import cn from './review.module.css';
+import { AuthContext } from '../../providers/auth-provider';
+import { ReviewForm } from '../restaurant/reviews/review-form/review-form';
+import classNames from 'classnames';
 
 export const Review = ({ review }) => {
-  const { userId, text, rating } = review;
+  console.log('review.jsx 12 >>> review:', review);
 
-  const user = useSelector((state) => selectUserById(state, userId));
+  const [isEdit, setIsEdit] = useState(false);
+  const { userId: reviewAuthorId, text, rating, id: reviewId } = review;
+  const { user } = useContext(AuthContext);
+  const isCurentUser = user?.userId === reviewAuthorId;
+  const { data: reviewAuthor } = useGetUsersQuery(undefined, {
+    selectFromResult: (result) => ({
+      ...result,
+      data: result?.data.find(
+        (reviewAuthor) => reviewAuthor.id === reviewAuthorId
+      ),
+    }),
+  });
 
-  if (!user) {
+  const [updateReview, { isLoading: isUpdateReviewLoading }] =
+    useUpdateReviewMutation();
+  const handleFormSubmit = useCallback(
+    (form) => {
+      updateReview({
+        review: { ...form, userId: user?.userId, id: reviewId },
+      });
+    },
+    [updateReview, user?.userId, reviewId]
+  );
+
+  if (!reviewAuthor) {
     return null;
   }
 
-  const { name: userName } = user;
+  const { name: reviewAuthorName } = reviewAuthor;
   return (
-    <li>
-      <i>
-        {userName}: {text} ({rating})
-      </i>
+    <li className={cn.listItem}>
+      <div className={classNames({ [cn.listItemInner]: isEdit })}>
+        <i>
+          {reviewAuthorName}: {text} ({rating})&nbsp;
+        </i>
+        {isCurentUser && !isEdit && (
+          <img
+            className={cn.editIcon}
+            src='../../../public/icons/pen.svg'
+            onClick={() => setIsEdit(true)}
+          />
+        )}
+        {isEdit && (
+          <ReviewForm
+            initialValue={{ text, rating }}
+            title={'Редактировать отзыв'}
+            handleClose={() => setIsEdit(false)}
+            onSubmit={handleFormSubmit}
+            isSubmitLoading={isUpdateReviewLoading}
+          />
+        )}
+      </div>
     </li>
   );
 };

@@ -1,55 +1,55 @@
 import { useOutletContext } from 'react-router';
 import { ReviewContainer } from '../../review/review-container';
-import { ReviewForm } from './review-form/review-form';
 import cn from './reviews.module.css';
-import { useCallback, useContext } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../../../providers/auth-provider';
-import { useSelector } from 'react-redux';
-import { selectReviewsIds } from '../../../redux/entities/reviews/reviews-slice';
-import { useRequest } from '../../../redux/hooks/use-request';
-import { getReviewsOfRestaurant } from '../../../redux/entities/reviews/get-reviews-of-restaurant';
-import { REQUEST_STATUS } from '../../../constants/api-const';
-import { getUsers } from '../../../redux/entities/users/get-users';
+import { ReviewFormContainer } from './review-form/review-form-container';
+import {
+  useGetReviewsByRestaurantIdQuery,
+  useGetUsersQuery,
+} from '../../../redux/services/api';
 
 export const Reviews = () => {
-  const reviewsIds = useSelector(selectReviewsIds);
-
   const { user } = useContext(AuthContext);
-  const isAuthorized = useCallback(() => !!user?.name, [user?.name]);
+  const isAuthorized = !!user?.name;
 
   const { restaurantId } = useOutletContext();
-  const rewiewsRequestStatus = useRequest(getReviewsOfRestaurant, restaurantId);
-  const usersRequestStatus = useRequest(getUsers);
 
-  if (
-    rewiewsRequestStatus === REQUEST_STATUS.pending ||
-    usersRequestStatus === REQUEST_STATUS.pending
-  ) {
+  const { isLoading: isUsersLoading, isError: isUsersError } =
+    useGetUsersQuery();
+  const {
+    data: reviews,
+    isError: isReviewsError,
+    isLoading: isReviewsLoading,
+  } = useGetReviewsByRestaurantIdQuery(restaurantId);
+
+  if (isReviewsLoading || isUsersLoading) {
     return 'загрузка отзывов...';
   }
 
-  if (
-    rewiewsRequestStatus === REQUEST_STATUS.rejected ||
-    usersRequestStatus === REQUEST_STATUS.rejected
-  ) {
+  if (isReviewsError || isUsersError) {
     return 'ошибка загрузки отзывов...';
   }
   return (
     <div>
       <h3>Отзывы</h3>
 
-      {reviewsIds?.length ? (
+      {reviews?.length ? (
         <ul>
-          {reviewsIds.map((reviewId) => {
-            return <ReviewContainer reviewId={reviewId} key={reviewId} />;
+          {reviews.map((review) => {
+            return <ReviewContainer review={review} key={review.id} />;
           })}
         </ul>
       ) : (
-        <div> {isAuthorized() ? 'Оставьте первый отзыв' : 'Отсутствуют'}</div>
+        <div> {isAuthorized ? 'Оставьте первый отзыв' : 'Отсутствуют'}</div>
       )}
-
       <br />
-      {isAuthorized() && <ReviewForm className={cn.reviewForm} />}
+      {isAuthorized && (
+        <ReviewFormContainer
+          className={cn.reviewForm}
+          restaurantId={restaurantId}
+        />
+      )}
     </div>
   );
 };

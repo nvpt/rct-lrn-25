@@ -5,10 +5,7 @@ import { AuthContext } from '../../providers/auth-provider';
 import { Button } from '../button/button';
 import { Cart } from '../cart/cart';
 import { Link, useLocation } from 'react-router';
-
-const someUser = {
-  name: 'Zato',
-};
+import { someUser } from '../../../public/user-mock';
 
 export const Header = () => {
   const { theme, changeTheme } = useContext(ThemeContext);
