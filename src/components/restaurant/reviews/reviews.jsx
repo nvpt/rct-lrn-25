@@ -1,7 +1,7 @@
 import { useOutletContext } from 'react-router';
 import { ReviewContainer } from '../../review/review-container';
 import cn from './reviews.module.css';
-import { useCallback, useContext } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../../../providers/auth-provider';
 import { ReviewFormContainer } from './review-form/review-form-container';
 import {
@@ -11,7 +11,7 @@ import {
 
 export const Reviews = () => {
   const { user } = useContext(AuthContext);
-  const isAuthorized = useCallback(() => !!user?.name, [user?.name]);
+  const isAuthorized = !!user?.name;
 
   const { restaurantId } = useOutletContext();
 
@@ -22,7 +22,6 @@ export const Reviews = () => {
     isError: isReviewsError,
     isLoading: isReviewsLoading,
   } = useGetReviewsByRestaurantIdQuery(restaurantId);
-  console.log('reviews.jsx 26 >>> reviews:', reviews);
 
   if (isReviewsLoading || isUsersLoading) {
     return 'загрузка отзывов...';
@@ -42,11 +41,10 @@ export const Reviews = () => {
           })}
         </ul>
       ) : (
-        <div> {isAuthorized() ? 'Оставьте первый отзыв' : 'Отсутствуют'}</div>
+        <div> {isAuthorized ? 'Оставьте первый отзыв' : 'Отсутствуют'}</div>
       )}
-
       <br />
-      {isAuthorized() && (
+      {isAuthorized && (
         <ReviewFormContainer
           className={cn.reviewForm}
           restaurantId={restaurantId}

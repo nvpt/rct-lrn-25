@@ -1,85 +1,35 @@
-import { useReducer } from 'react';
 import { Counter } from '../../../counter/counter';
 
 import cn from './review-form.module.css';
 import { Button } from '../../../button/button';
+import { useForm } from './use-form';
 
-const FORM_ACTYON_TYPE = {
-  setName: 'SET_NAME',
-  setText: 'SET_TEXT',
-  setRating: 'SET_RATING',
-  clearForm: 'CLEAR_FORM',
-};
-
-const INITIAL_FORM = {
-  name: '',
-  text: '',
-  rating: 0,
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case FORM_ACTYON_TYPE.setName:
-      return {
-        ...INITIAL_FORM,
-        name: action.payload,
-      };
-    case FORM_ACTYON_TYPE.setText:
-      return {
-        ...state,
-        text: action.payload,
-      };
-    case FORM_ACTYON_TYPE.setRating:
-      return {
-        ...state,
-        rating: action.payload,
-      };
-    case FORM_ACTYON_TYPE.clearForm:
-      return {
-        ...INITIAL_FORM,
-      };
-    default:
-      return {
-        ...state,
-      };
-  }
-};
-
-export const ReviewForm = ({ className, onSubmit }) => {
-  const [form, dispatch] = useReducer(reducer, INITIAL_FORM);
-  const { name, text, rating } = form;
-
-  const setName = (name) => {
-    dispatch({ type: FORM_ACTYON_TYPE.setName, payload: name });
-  };
-  const setText = (text) => {
-    dispatch({ type: FORM_ACTYON_TYPE.setText, payload: text });
-  };
-  const setRating = (rating) => {
-    dispatch({ type: FORM_ACTYON_TYPE.setRating, payload: rating });
-  };
-  const clearForm = () => {
-    dispatch({ type: FORM_ACTYON_TYPE.clearForm });
-  };
-
+export const ReviewForm = ({
+  className,
+  onSubmit,
+  initialValue,
+  title,
+  handleClose,
+  isSubmitLoading,
+}) => {
+  const { form, setText, setRating, clearForm } = useForm({ initialValue });
+  const { text, rating } = form;
   return (
     <div className={className}>
-      <h4>Оставить отзыв:</h4>
+      <div className={cn.header}>
+        <h4>{title}</h4>
+        {handleClose && (
+          <div onClick={handleClose} className={cn.closeButton}>
+            X
+          </div>
+        )}
+      </div>
       <form
         className={cn.form}
         onSubmit={(event) => {
           event.preventDefault();
         }}
       >
-        <div className={cn.formField}>
-          <label htmlFor='name'>Имя</label>
-          <input
-            type='text'
-            id='name'
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
-        </div>
         <div className={cn.formField}>
           <label htmlFor='text'>Сообщение</label>
           <textarea
@@ -103,8 +53,9 @@ export const ReviewForm = ({ className, onSubmit }) => {
           onClick={clearForm}
         />
         <Button
+          disabled={isSubmitLoading}
           className={cn.button}
-          onClick={() => onSubmit({ form })}
+          onClick={() => onSubmit(form)}
           title={'Отправить'}
         />
       </form>
