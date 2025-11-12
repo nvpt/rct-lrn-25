@@ -30,6 +30,8 @@ export const Review = ({ review }) => {
     (form) => {
       updateReview({
         review: { ...form, userId: user?.userId, id: reviewId },
+      }).then(() => {
+        setIsEdit(false);
       });
     },
     [updateReview, user?.userId, reviewId]
