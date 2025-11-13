@@ -9,7 +9,6 @@ export const ReviewForm = ({
   onSubmit,
   initialValue,
   title,
-  handleClose,
   isSubmitLoading,
 }) => {
   const { form, setText, setRating, clearForm } = useForm({ initialValue });
@@ -17,12 +16,7 @@ export const ReviewForm = ({
   return (
     <div className={className}>
       <div className={cn.header}>
-        <h4>{title}</h4>
-        {handleClose && (
-          <div onClick={handleClose} className={cn.closeButton}>
-            X
-          </div>
-        )}
+        <h4 className={cn.headerTitle}>{title}</h4>
       </div>
       <form
         className={cn.form}

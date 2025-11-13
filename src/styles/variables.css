@@ -22,6 +22,8 @@
     --default-theme: var(--gray-theme);
     --default-theme-hover: var(--gray-theme-hover);
 
+    --border-color: lightslategray;
+
 
     /* Шрифты */
     --font-color: var(--dark-gray);
