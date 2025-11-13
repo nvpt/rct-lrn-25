@@ -1,4 +1,18 @@
 .cart {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 200px;
+}
+
+.cartList {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.clearButton {
+    padding: 6px;
 }

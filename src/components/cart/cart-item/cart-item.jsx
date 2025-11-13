@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { selectCartItemAmountById } from '../../../redux/entities/cart/cart-slice';
 import { useGetDishByIdQuery } from '../../../redux/services/api';
+import cn from './cart-item.module.css'
 
 export const CartItem = ({ id }) => {
   const dishCount =
@@ -14,7 +15,7 @@ export const CartItem = ({ id }) => {
   const { name, price } = dish;
 
   return (
-    <div>
+    <div className={cn.item}>
       {name}:{dishCount} <i>(цена: {price})</i>
     </div>
   );

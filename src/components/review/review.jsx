@@ -57,7 +57,7 @@ export const Review = ({ review }) => {
           />
         )}
         {isEdit && (
-          <Modal isEdit={isEdit} setIsEdit={setIsEdit}>
+          <Modal isOpen={isEdit} setIsOpen={setIsEdit}>
             <ReviewForm
               className={cn.modal}
               initialValue={{ text, rating }}
