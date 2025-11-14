@@ -27,7 +27,7 @@ export const Cart = () => {
       <Button
         className={cn.clearButton}
         title='Очистить корзину'
-        onClick={() => handleClear()}
+        onClick={handleClear}
       />
     </div>
   );
