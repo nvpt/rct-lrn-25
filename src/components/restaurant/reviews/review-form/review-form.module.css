@@ -1,6 +1,7 @@
 .form {
     display: flex;
     flex-direction: column;
+    width: 100%;
     gap: 16px;
     padding: 16px 16px 30px;
     border: 1px solid gray;
@@ -11,10 +12,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
-.closeButton {
-    cursor: pointer;
+.headerTitle {
+    margin: 16px 0;
 }
 
 .formField {

@@ -7,6 +7,7 @@ import cn from './review.module.css';
 import { AuthContext } from '../../providers/auth-provider';
 import { ReviewForm } from '../restaurant/reviews/review-form/review-form';
 import classNames from 'classnames';
+import { Modal } from '../modal/modal';
 
 export const Review = ({ review }) => {
   console.log('review.jsx 12 >>> review:', review);
@@ -30,6 +31,8 @@ export const Review = ({ review }) => {
     (form) => {
       updateReview({
         review: { ...form, userId: user?.userId, id: reviewId },
+      }).then(() => {
+        setIsEdit(false);
       });
     },
     [updateReview, user?.userId, reviewId]
@@ -54,13 +57,15 @@ export const Review = ({ review }) => {
           />
         )}
         {isEdit && (
-          <ReviewForm
-            initialValue={{ text, rating }}
-            title={'Редактировать отзыв'}
-            handleClose={() => setIsEdit(false)}
-            onSubmit={handleFormSubmit}
-            isSubmitLoading={isUpdateReviewLoading}
-          />
+          <Modal isOpen={isEdit} setIsOpen={setIsEdit}>
+            <ReviewForm
+              className={cn.modal}
+              initialValue={{ text, rating }}
+              title={'Редактировать отзыв'}
+              onSubmit={handleFormSubmit}
+              isSubmitLoading={isUpdateReviewLoading}
+            />
+          </Modal>
         )}
       </div>
     </li>

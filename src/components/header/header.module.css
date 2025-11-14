@@ -21,6 +21,17 @@
     cursor: pointer;
 }
 
+.cartIcon {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.cartModal {
+    min-height: 200px;
+    padding-top: 0;
+}
+
 .user {
     display: flex;
     align-items: center;
